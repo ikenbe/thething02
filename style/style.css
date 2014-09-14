@@ -1,0 +1,110 @@
+*{
+	padding:0px;
+	margin:0px;
+	background-color:#91a7ff; 
+}
+html { overflow: hidden; }
+p{
+	font-size:24px;
+	font-family:'noto sans',sans-serif;
+	text-align: center;
+}
+
+.cell{
+	display: inline-block;
+	height:100px;
+	width: 100px;
+	margin:10px;
+	padding:0px;
+	line-height: 90px;
+	border-radius: 20px;
+	background-color: white;
+	text-align: center;
+	font-size:30px;
+	font-family:'noto sans','Microsoft Yahei','微软雅黑',sans-serif;
+	box-shadow:5px 5px 2px #738ffe;
+}
+span:hover{
+		box-shadow:4px 4px 1px #738ffe;
+}
+
+.container{
+	height:100%;
+	width:100%;
+	text-align: center;
+	background-color:#91a7ff; 
+};
+
+.row{
+	margin:0 auto;
+	height:100px;
+}
+.moved{
+	font-style: strong;
+}
+.startset{
+	width:50%;
+	height:150px;
+	text-align: center;
+	line-height:150px;
+	font-size:48px;
+	font-family:'noto sans','Microsoft Yahei','微软雅黑',sans-serif;
+	box-shadow:5px 5px 5px #738ffe;
+	border-radius: 8px;
+	margin:40px auto;
+	background-color:white;
+	cursor:pointer;
+}
+.startset:hover{
+	cursor:pointer;
+	box-shadow:8px 8px 5px #738ffe;
+	font-size:64px;
+	line-height:150px;
+	transition: all 200ms;
+}
+.top{
+	display: inline-block;
+	height:100px;
+	width: 100px;
+	margin:10px;
+	padding:0px;
+	border-radius: 20px;
+	background-color: white;
+	text-align: center;
+	font-size:30px;
+	font-family:'noto sans','Microsoft Yahei','微软雅黑',sans-serif;
+	box-shadow:5px 5px 2px #738ffe;
+}
+}
+.top-left, .top-right{
+	background-color:white;
+	width:170px;
+	height:80px;
+	border-radius: 10px;
+	line-height:250%;
+}
+.top-left:hover{
+	cursor:pointer;
+}
+#top{
+	display: inline-block;
+	width:100%;
+	height:100px;
+	margin:0 0 25px 0;
+	padding:30px 0 35px 0;
+	text-align: center;
+	border-radius: 0px;
+	line-height:300%;
+	font-family:'noto sans','Microsoft Yahei','微软雅黑',sans-serif;
+	background-color:#4d73ff;
+}
+#next{
+	width:80px;
+	height:80px;
+	border-radius: 10px;
+	line-height:250%;
+	font-family:'noto sans','Microsoft Yahei','微软雅黑',sans-serif;
+	box-shadow:5px 5px 2px #afbfff;
+	background-color:white;
+	
+}
