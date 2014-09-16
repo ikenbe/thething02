@@ -1,18 +1,15 @@
-
 html, body { 
 	padding:0;
 	margin:0;
-	background-color:#bcaaa4; 
+	background-color:#91a7ff; 
 	font-size=62.5%;
 	font-family:'noto sans','Microsoft Yahei','微软雅黑',sans-serif;
 	overflow: hidden;
 	width:100%;
-	height:100%;}
-p{
-	font-size:2.4em;
-	text-align: center;
+	height:100%;
 }
 .container{
+	margin:0;
 	height:100%;
 	width:100%;
 	text-align: center;
@@ -22,12 +19,12 @@ p{
 .startset {
 	width:50%;
 	height:150px;
+	line-height:1.8em;
 	text-align: center;
-	line-height:1.6em;
 	font-size:4.8em;
 	box-shadow:5px 5px 5px #738ffe;
 	border-radius: 8px;
-	margin:10px auto;
+	margin:60px auto;
 	background-color:white;
 	cursor:pointer;
 }
@@ -36,17 +33,8 @@ p{
 	box-shadow:8px 8px 5px #738ffe;
 	font-size:6.4em;
 	line-height:1.4em;
-	transition: all 200ms;
+	transition: all 100ms;
 }
-#top{
-	display: inline-block;
-	width:100%;
-	height:100px;
-	margin:0;
-	padding:0;
-	text-align: center;
-	background-color:#4d73ff;
-	}
 .grid{
 	position: fixed;
 	background-color: #4d73ff;
@@ -58,8 +46,8 @@ p{
 	height:25%;
 	}
 .cell{
-	display: inline-block;
-	width:20%;
+	/*display: inline-block;
+	width:20%;*/
 	border-radius: 10px;
 	background-color: white;
 	text-align: center;
@@ -71,20 +59,28 @@ p{
 .cell:hover{box-shadow:2px 2px 1px #738ffe;background-color: #fff59d;transition:all 200ms;}
 
 .cell,.c1,.c2,.c3,.c4,{
+	display:block;
 	position:absolute;
-	float:left;
-/*	left:0;*/
 }
+.c1{left:0;}
+.c2{left:200px;}
+.c3{left:400px;}
+.c4{left:600px;}
 
 .vv0{
 	background-color:#d0d9ff;
 	color:#d0d9ff;
 	box-shadow:0 0 0 #123456;
 }
-
+.top{
+	float:top;
+	width:100%;
+	display:block;
+	text-align: center;
+}
 .test{
-	position:fixed;
-	margin:5px;
+	display:inline-block;
+	margin:10px;
 	font-size:2.4em;
 	width:150px;
 	height:50px;
@@ -95,4 +91,6 @@ p{
 	cursor:pointer;
 	z-index:0;
 }
-#testB{left:160px;}
+.del{
+	box-shadow:0;
+}
