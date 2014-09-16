@@ -9,14 +9,14 @@ var main = function(){
 		newGame();
 		testButton("80px");
 		$('.startset').fadeOut(100,function(){
-			$('.grid').slideDown(600,function(){
+			$('.grid').slideDown(400,function(){
 				//$('.cell').each(function(){  //--Totally lost here and the next line-- 
 				//$(this).attr("cellVal",function(){var vl = parseInt($(this).text());return vl;})});
 			});
 		}).remove();
 		//	Creat test buttons
 		
-		$('.top').slideDown(600);
+		$('.top').fadeIn(1000);
 	});
 
 	//initial data
@@ -28,7 +28,7 @@ var main = function(){
 	var	$edge = $(window).height()-$(window).width();
 	
 	$(document).keydown(function(key){});
-//FUNCTIONS====================================================================
+	//FUNCTIONS====================================================================
 
 	function setUp(){
 		$("<div id =\"grid\" class=\"grid\"><div><span>11</span><span>12</span><span>13</span><span>14</span></div><div><span>R1C1</span><span>R1C2</span><span>R1C3</span><span>R1C4</span></div><div><span>R1C1</span><span>R1C2</span><span>R1C3</span><span>R1C4</span></div><div><span>R1C1</span><span>R1C2</span><span>R1C3</span><span>R1C4</span></div></div>")
@@ -42,108 +42,69 @@ var main = function(){
 		$('#grid').children().addClass('row');
 		$('#grid').find($('span')).addClass('cell');
 		//Determin grid size	
-};
+	};
 
 	function newGrid(){
-	gridV=[];
-	$('div.grid').find('span').each(function(i){
-		gridV[i]=parseInt($(this).html());
-	});
-	$('div.grid').find('*').remove();
-	$('<div class=\"row r1\"><span class=\"cell r1 c1\"></span><span class=\"cell r1 c2\"></span><span class=\"cell r1 c3\"></span><span class=\"cell r1 c4\" ></span></div><div class=\"row r2\"><span class=\"cell r2 c1\"></span><span class=\"cell r2 c2\"></span><span class=\"cell r2 c3\"></span><span class=\"cell r2 c4\" ></span></div><div class=\"row r3\"><span class=\"cell r3 c1\"></span><span class=\"cell r3 c2\"></span><span class=\"cell r3 c3\"></span><span class=\"cell r3 c4\" ></span></div><div class=\"row r4\"><span class=\"cell r4 c1\"></span><span class=\"cell r4 c2\"></span><span class=\"cell r4 c3\"></span><span class=\"cell r4 c4\" ></span></div>').appendTo('div.grid');
-	$('.cell').css({'margin':(0.025*$g),'height':0.2*$g,'width':0.2*$g, 'position':'absolute'});
-	$('span.c2').css({'left':0.25*$g});
-	$('span.c3').css({'left':0.5*$g});
-	$('span.c4').css({'left':0.75*$g});
-	//$('.cell').css({"color":"black","background-color":"white"});
-	//	console.log("How many 0s?: "+$('.cell:contains("0")').size())
-	$('.cell:contains("0")').css({"background-color":"#d0d9ff","color":"#d0d9ff"});
+		gridV=[];
+		$('div.grid').find('span').each(function(i){
+			gridV[i]=parseInt($(this).html());
+		});
+		$('div.grid').find('*').remove();
+		$('<div class=\"row r1\"><span class=\"cell r1 c1\"></span><span class=\"cell r1 c2\"></span><span class=\"cell r1 c3\"></span><span class=\"cell r1 c4\" ></span></div><div class=\"row r2\"><span class=\"cell r2 c1\"></span><span class=\"cell r2 c2\"></span><span class=\"cell r2 c3\"></span><span class=\"cell r2 c4\" ></span></div><div class=\"row r3\"><span class=\"cell r3 c1\"></span><span class=\"cell r3 c2\"></span><span class=\"cell r3 c3\"></span><span class=\"cell r3 c4\" ></span></div><div class=\"row r4\"><span class=\"cell r4 c1\"></span><span class=\"cell r4 c2\"></span><span class=\"cell r4 c3\"></span><span class=\"cell r4 c4\" ></span></div>').appendTo('div.grid');
+		$('.cell').css({'margin':(0.025*$g),'height':0.2*$g,'width':0.2*$g, 'position':'absolute'});
+		$('span.c2').css({'left':0.25*$g});
+		$('span.c3').css({'left':0.5*$g});
+		$('span.c4').css({'left':0.75*$g});
+
 		$('div.grid').find('span').each(function(i){
 		$(this).text(gridV[i]);
-	});
-};
+		});
+	};
 
 	function moveGrid(direct,next){
 
-		newGrid();
-
-		if(direct === "left"){
-		/*
-		//index?
-		$('.c1').css({'z-index':'1'});
-		$('.c2').css({'z-index':'2'});
-		$('.c3').css({'z-index':'3'});
-		$('.c4').css({'z-index':'4'});
-		*/
-		//run on each cell
-		$('.cell').each(function(){
-			var moveID = 0;
-			var cellThis = parseInt($(this).text());
-			var cellPrev = parseInt($(this).prev().text());
-			var cellV = cellThis;
-			if($(this).hasClass('c1')){
-				if($(this).text()==="0"){$(this).addClass('remove')};
-			}
-				else if($(this).prev().hasClass('moved')){moveID=1;}
-				else if(cellPrev === 0){moveID =1;cellV=cellThis;$(this).prev().addClass('remove');}
-				else if((cellPrev >=3)&&(cellPrev===cellThis)){moveID=1;cellV=cellThis*2;$(this).prev().addClass('remove')}
-				else if((cellPrev+cellThis)===3){moveID=1;cellV=3;$(this).prev().addClass('remove')}
-			if(cellV >= 0){$(this).attr("vv",cellV);}
-			if(moveID===1){$(this).addClass('moved').text(cellV);};
-		});
-		//$('.cell').not('.moved').toggle();
-		//debug
-		console.log("The grid: "+gridV);
-		console.log("Anything Moved?"+$('.r1.moved').size());
-		console.log("Anything Moved?"+$('.r2.moved').size());
-		console.log("Anything Moved?"+$('.r3.moved').size());
-		console.log("Anything Moved?"+$('.r4.moved').size());
-
-		$('.remove').each(function(){$(this).parent().append('<span class=\"new cell\">0</span>');}).hide();
-		$('.new').each(function(){$(this).attr("style",$(this).siblings("[vv=0]").attr("style"));});
-
-
-
-		$('.moved.c2').animate({'margin-left':0.025*$g,'color':'#ff5722'},200);
-		$('.moved.c3').animate({'margin-left':0.025*$g,'color':'#ff5722'},200);
-		$('.moved.c4').animate({'margin-left':0.025*$g,'color':'#ff5722'},200);
-		$('.new').animate({'margin-left':0.025*$g,'color':'#ff5722'},200);
-
-		$('.remove').remove();
-		};
+		setNext();
+		countCell = 0;
+		
+		$('span.cell').css({
+			'position':'absolute'	//'float':'left',//
+			}).each(function(){
+					eachCell($(this));
+				});
+		if($('.del').size()===0){alert("This way stuck!")};
+		
+		moveStep1();
+		moveStep2();
 	};
+
+	function colorFix(){
+		$('.cell').not('[val="0"]').css({"background-color":"#fff","color":"#000","display":"inline-block"});
+		$('[val="0"],.c5').css({"display":"none"})//"background-color":"#4d73ff","color":"#d0d9ff","z-index":"9"});
+		console.log("Debug: "+$('[val="0"]').size());
+	}
 
 	function testButton(E){
 			$("<div class =\"top\"><div class =\"test\" id=\"testA\">MENU</div><div class =\"test\" id=\"testB\">RESET</div></div>")
 			.appendTo($('.container')).hide();
 			//set left margin
 			//$('#testA').css({'margin-left':E})
-			$('#testA').click(function(){moveGrid("left",3)});
+			$('#testA').click(function(){moveGrid()});
 			$('#testB').click(function(){newGame()});
 
 			$("<div class =\"test\" id=\"testC\">Left</div>").appendTo($('#testA').parent()); //style=\"left:320px\"
 			$('#testC').click(function(){
-				countCell = 0;
-				
-				$('span.cell').css({
-				'position':'absolute'	//'float':'left',//
-				}).each(function(){
-					eachCell($(this));
-				});
-				if($('.del').size()===0){alert("YOU LOST!")};
 
-				moveStep1();
-				moveStep2();
-				//reFormat();
-				//alert(countCell);
+				moveGrid();
+				
 			});
-};
+	};
 
 	function newGame(){
 		$('.cell').each(function(){
 		$(this).html(Math.floor(Math.random()*Math.random()+3*Math.random()));
 		}).show();
 		newGrid();
+		colorFix();
 	};
 
 	function eachCell(A){
@@ -155,7 +116,7 @@ var main = function(){
 		//	console.log("Itself:"+A);
 		//	console.log("Text:"+A.text());
 		//  console.log(valA);
-		A.css({'color':'#000'})
+		///A.css({'color':'#000'})
 		//	A.removeAttr('style');
 		//A I first in the row? ==>>mark it
 		function AtoP(){
@@ -174,13 +135,6 @@ var main = function(){
 					}
 		A.attr("val",A.text());
 		A.text(valA);
-
-		//if(A.text()==="NaN"){A.text("0")}
-
-
-		
-
-	//someone del in row?
 	};
 
 	function moveStep1(){
@@ -192,22 +146,23 @@ var main = function(){
 	function moveStep2(){
 		//$('.del').fadeOut('300', function(){$(this).remove();});
 		console.log("You took a move");
-		$('.del').remove();
-		$('.moved.c2').animate({left:0},300);
-		$('.moved.c3').animate({left:0.25*$g},300);
-		$('.moved.c4').animate({left:0.5*$g},300);
-		$('.moved.c5').animate({left:0.75*$g},300);
+		window.setTimeout(function(){$('.del').remove()},200);
+		$('.moved.c2').animate({left:0},200);
+		$('.moved.c3').animate({left:0.25*$g},200);
+		$('.moved.c4').animate({left:0.5*$g},200);
+		$('.moved.c5').animate({left:0.75*$g},200);
 		//window.setTimeout(reFormat(),300);
 		function fixText(){
 			$('.cell').each(function(){
-				$(this).text( $(this).attr('val') );console.log("????"+$(this).text());
+				$(this).text( $(this).attr('val') );//console.log("????"+$(this).text());
 			})
 		};
-
-		$('#fuck').fadeToggle(400,fixText());
-
-		reFormat();
+		window.setTimeout(fixText,160);
+		window.setTimeout(colorFix,165);
+		//$('#fuck').fadeToggle(400,fixText());
+		window.setTimeout(reFormat,210);
 		};
+
 	function reFormat(){
 		//$('span.del').remove();
 		$('div.row').each(function(){
@@ -221,7 +176,20 @@ var main = function(){
 		//$('div.row').children().last('span').prev().removeClass().addClass('cell','c3');
 	}
 
-//FUNCTIONS====================================================================
+	function setNext(){
+		$current = $next;
+		$next = Math.floor(Math.random()*3+1);
+		if($next>=3){
+			for(var i=Math.random();i<0.3;i=Math.random()){
+				$next = $next*2;
+			}}
+		$('#testB').text("Next:"+$next);
+	}
+
+	//FUNCTIONS====================================================================
+
+
+
 };
 $(document).ready(main);
 

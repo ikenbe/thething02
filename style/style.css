@@ -56,7 +56,7 @@ html, body {
 	box-shadow:5px 5px 2px #738ffe;
 	cursor:pointer;
 }
-.cell:hover{box-shadow:2px 2px 1px #738ffe;background-color: #fff59d;transition:all 200ms;}
+.cell:hover{box-shadow:6px 6px 5px #673ab7;background-color: #fff59d;transition:all 200ms;}
 
 .cell,.c1,.c2,.c3,.c4,{
 	display:block;
@@ -67,11 +67,6 @@ html, body {
 .c3{left:400px;}
 .c4{left:600px;}
 
-.vv0{
-	background-color:#d0d9ff;
-	color:#d0d9ff;
-	box-shadow:0 0 0 #123456;
-}
 .top{
 	float:top;
 	width:100%;
@@ -80,9 +75,9 @@ html, body {
 }
 .test{
 	display:inline-block;
-	margin:10px;
+	margin:2%;
 	font-size:2.4em;
-	width:150px;
+	width:25%;
 	height:50px;
 	text-align: center;
 	box-shadow:5px 5px 5px #738ffe;
