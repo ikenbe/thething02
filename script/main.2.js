@@ -1,4 +1,13 @@
 var main = function(){
+	//initial data
+	var countCell = 0;
+	var gridV=[];
+	var $next = 0;
+	var $current = 0;
+	var $g = 0;
+	var $edge = 0;
+	var retina = window.devicePixelRatio;
+	console.log(retina);
 	//set up game grid
 	//Get window size, set grid size
 	initGrid();
@@ -6,7 +15,7 @@ var main = function(){
 	
 	//start button listener: START THE GAME!!
 	$('.starter').click(function(){
-		$('#top').remove();
+		//$('#top').remove();
 		newGame();
 		testButton("80px");
 		$('.startset').fadeOut(100,function(){
@@ -20,30 +29,24 @@ var main = function(){
 		$('.top').fadeIn(1000);
 	});
 
-	//initial data
-	var countCell = 0;
-	var gridV=[];
-	var $next = 0;
-	var $current = 3;
-	var $g = Math.min($(window).height(),$(window).width())-100;
-	var	$edge = $(window).height()-$(window).width();
+
 	
 	$(document).keydown(function(key){});
 	//FUNCTIONS====================================================================
 
 	function initGrid(){
-		$("<div id =\"grid\" class=\"grid\"></div>").appendTo($('div.container')).hide();
+
+		if($('#grid').size()===0){$("<div id =\"grid\" class=\"grid\"></div>").appendTo($('div.container')).hide()};
 		
 		//Determine grid size and cell size
-		$g = Math.min($(window).height(),$(window).width())-100;
+		$g = 0.25*(Math.min($(window).height(),$(window).width())-100);
 		$edge = $(window).height()-$(window).width();
-		if($edge > 0){	$('#grid').css({'margin-top':((0.5*$edge)+75),'margin-left':50,'width':$g,'height':$g});}
-			else {  $('#grid').css({'margin-top':75,'margin-left':Math.abs(0.5*$edge)+50,'width':$g,'height':$g}); }
+		if($edge > 0){	$('#grid').css({'margin-top':((0.5*$edge)+75),'margin-left':50,'width':4*$g,'height':4*$g});}
+			else {  $('#grid').css({'margin-top':75,'margin-left':Math.abs(0.5*$edge)+50,'width':4*$g,'height':4*$g}); }
 
 		//tagging the rows and cells
 		//$('#grid').children().addClass('row');
 		//$('#grid').find($('span')).addClass('cell');
-		
 	};
 
 	function initCell(){
@@ -51,6 +54,15 @@ var main = function(){
 		.appendTo($('div.grid'));
 	};
 
+	function newGame(){
+
+		$('.cell').each(function(){
+			$(this).html(Math.floor(Math.random()*Math.random()+3*Math.random()));
+		});
+		 initGrid()
+		resetGrid();
+		colorFix();
+	};
 
 	function resetGrid(){  //delete all the cells and create new cells and give them the old val
 		// girdV storages the cell values as is group
@@ -61,10 +73,10 @@ var main = function(){
 
 		initCell();
 
-		$('.cell').css({'margin':(0.025*$g),'height':0.2*$g,'width':0.2*$g, 'position':'absolute'});
-		$('span.c2').css({'left':0.25*$g});
-		$('span.c3').css({'left':0.5*$g});
-		$('span.c4').css({'left':0.75*$g});
+		$('.cell').css({'margin':(0.1*$g),'height':0.8*$g,'width':0.8*$g, 'position':'absolute'});
+		$('span.c2').css({'left':$g});
+		$('span.c3').css({'left':2*$g});
+		$('span.c4').css({'left':3*$g});
 
 		$('div.grid').find('span').each(function(i){
 		$(this).text(gridV[i]);
@@ -93,7 +105,7 @@ var main = function(){
 			$(this).attr("val", pass);
 		}) ;
 		$('.cell').not('[val="0"]').css({"background-color":"#fff","color":"#000","display":"inline-block"});
-		$('[val="0"]').css({"display":"none"})//"background-color":"#4d73ff","color":"#d0d9ff","z-index":"9"});
+		$('[val="0"]').css({"display":"none"});//"background-color":"#4d73ff","color":"#d0d9ff","z-index":"9"});
 		console.log("Debug: "+$('[val="0"]').size());
 	};
 
@@ -114,13 +126,7 @@ var main = function(){
 	};
 
 
-	function newGame(){
-		$('.cell').each(function(){
-			$(this).html(Math.floor(Math.random()*Math.random()+3*Math.random()));
-		});
-		resetGrid();
-		colorFix();
-	};
+
 
 	function eachCell(A,D){
 		countCell+=1;
@@ -161,7 +167,7 @@ var main = function(){
 			var pass = parseInt($(this).text());
 			$(this).attr("val", pass)
 		}) ;
-		$('.c5').css({'position':'absolute','width':$g*0.2,'height':$g*0.2,'margin':$g*0.025,'left':$g}).hide();
+		$('.c5').css({'position':'absolute','width':$g*0.8,'height':$g*0.8,'margin':$g*0.1,'left':4*$g}).hide();
 		};
 
 	function moveStep2(){
@@ -169,19 +175,19 @@ var main = function(){
 		console.log("You took a move");
 		window.setTimeout(function(){$('.del').remove()},10);
 		$('.moved.c2').animate({left:0},200);
-		$('.moved.c3').animate({left:0.25*$g},200);
-		$('.moved.c4').animate({left:0.5*$g},200);
-		$('.moved.c5').animate({left:0.75*$g},200);
+		$('.moved.c3').animate({left:$g},200);
+		$('.moved.c4').animate({left:2*$g},200);
+		$('.moved.c5').animate({left:3*$g},200);
 		//window.setTimeout(reFormat(),300);
 		function fixText(){
 			$('.cell').each(function(){
 				$(this).text( $(this).attr('val') );//console.log("????"+$(this).text());
 			})
 		};
-		window.setTimeout(fixText,160);
-		window.setTimeout(colorFix,165);
+		window.setTimeout(fixText,20);
+		window.setTimeout(colorFix,170);
 		//$('#fuck').fadeToggle(400,fixText());
-		window.setTimeout(reFormat,210);
+		window.setTimeout(reFormat,30);
 		};
 
 	function reFormat(){
@@ -206,6 +212,15 @@ var main = function(){
 			}}
 		$('#testB').text("Next:"+$next);
 	}
+
+	function calV(D){
+		switch(D){
+			case "left":
+			//girdV[];
+			break;
+		}
+	}
+
 
 	//FUNCTIONS====================================================================
 

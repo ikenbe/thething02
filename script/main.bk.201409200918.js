@@ -52,14 +52,18 @@ var main = function(){
 	};
 
 
-	function resetGrid(){  //delete all the cells and create new cells and give them the old val
-		// girdV storages the cell values as is group
+	function resetGrid(){
+		// girdV stoages the cell values as is group
 		gridV=[];
-		$('div.grid').find('span').each(function(i){gridV[i]=parseInt($(this).html());});
+		$('div.grid').find('span').each(function(i){
+			gridV[i]=parseInt($(this).html());
+		});
 		// remove all cells
 		$('div.grid').find('*').remove();
 
 		initCell();
+
+		//$('div.grid').show();
 
 		$('.cell').css({'margin':(0.025*$g),'height':0.2*$g,'width':0.2*$g, 'position':'absolute'});
 		$('span.c2').css({'left':0.25*$g});
@@ -88,12 +92,8 @@ var main = function(){
 	};
 
 	function colorFix(){
-		$('.cell').each(function(){ 
-			var pass = parseInt($(this).text());
-			$(this).attr("val", pass);
-		}) ;
 		$('.cell').not('[val="0"]').css({"background-color":"#fff","color":"#000","display":"inline-block"});
-		$('[val="0"]').css({"display":"none"})//"background-color":"#4d73ff","color":"#d0d9ff","z-index":"9"});
+		$('[val="0"],.c5').css({"display":"none"})//"background-color":"#4d73ff","color":"#d0d9ff","z-index":"9"});
 		console.log("Debug: "+$('[val="0"]').size());
 	};
 
@@ -117,12 +117,12 @@ var main = function(){
 	function newGame(){
 		$('.cell').each(function(){
 			$(this).html(Math.floor(Math.random()*Math.random()+3*Math.random()));
-		});
+		}).show();
 		resetGrid();
 		colorFix();
 	};
 
-	function eachCell(A,D){
+	function eachCell(A){
 		countCell+=1;
 		var cellV = parseInt(A.text());
 		var valA = parseInt(A.text());
@@ -153,15 +153,9 @@ var main = function(){
 	};
 
 	function moveStep1(){
-
-		//Left
 		$('.del').parent().append('<span class=\"cell moved c5\">0</span>');
 		$('.c5').eq(Math.floor(Math.random()*$('.c5').size())).text($current);
-		$('.c5').each(function(){ 
-			var pass = parseInt($(this).text());
-			$(this).attr("val", pass)
-		}) ;
-		$('.c5').css({'position':'absolute','width':$g*0.2,'height':$g*0.2,'margin':$g*0.025,'left':$g}).hide();
+		$('.c5').css({'position':'absolute','width':$g*0.2,'height':$g*0.2,'margin':$g*0.025,'left':$g});
 		};
 
 	function moveStep2(){
@@ -171,7 +165,7 @@ var main = function(){
 		$('.moved.c2').animate({left:0},200);
 		$('.moved.c3').animate({left:0.25*$g},200);
 		$('.moved.c4').animate({left:0.5*$g},200);
-		$('.moved.c5').animate({left:0.75*$g},200);
+		$('.moved.c5').css({'left':0.75*$g});
 		//window.setTimeout(reFormat(),300);
 		function fixText(){
 			$('.cell').each(function(){

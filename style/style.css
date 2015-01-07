@@ -7,6 +7,12 @@ html, body {
 	overflow: hidden;
 	width:100%;
 	height:100%;
+
+	-moz-user-select: none; /*火狐*/
+	-webkit-user-select: none;  /*webkit浏览器*/
+	-ms-user-select: none;   /*IE10*/
+	-khtml-user-select: none; /*早期浏览器*/
+	user-select: none;
 }
 .container{
 	margin:0;
@@ -18,8 +24,8 @@ html, body {
 }
 .startset {
 	width:50%;
-	height:150px;
-	line-height:1.8em;
+	height:20%;
+	line-height:2em;
 	text-align: center;
 	font-size:4.8em;
 	box-shadow:5px 5px 5px #738ffe;
@@ -36,8 +42,8 @@ html, body {
 	transition: all 100ms;
 }
 .grid{
-	position: fixed;
-	background-color: #4d73ff;
+	position: absolute;
+	background-color: #cfd6ef;
 	border-radius: 10px;
 }
 .row{
@@ -51,9 +57,9 @@ html, body {
 	border-radius: 10px;
 	background-color: white;
 	text-align: center;
-	font-size:3.6em;
-	line-height: 1.9em;
-	box-shadow:5px 5px 2px #738ffe;
+	font-size: 2.6em;
+	line-height: 2em;
+	box-shadow:5px 5px 0.5px #999999;
 	cursor:pointer;
 }
 .cell:hover{box-shadow:6px 6px 5px #673ab7;background-color: #fff59d;transition:all 200ms;}
@@ -70,14 +76,14 @@ html, body {
 .top{
 	float:top;
 	width:100%;
-	display:block;
+	/*display:block;*/
 	text-align: center;
 }
 .test{
 	display:inline-block;
 	margin:2%;
 	font-size:2.4em;
-	width:25%;
+	max-width:32%;
 	height:50px;
 	text-align: center;
 	box-shadow:5px 5px 5px #738ffe;
@@ -88,4 +94,17 @@ html, body {
 }
 .del{
 	box-shadow:0;
+}
+@media (max-width: 500px){
+	.startset {
+	font-size:3.6em;
+	padding: 1%;
+
+	}
+	.startset:hover{
+	box-shadow:8px 8px 5px #738ffe;
+	font-size:4.8em;
+	line-height:2em;
+}
+
 }
