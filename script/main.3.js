@@ -32,8 +32,8 @@ function main3(){
 			getNext();
 			transData();
 		});
-		$('#test2').hide().click(function(){
-			$('#test2').html(gridNow[0].concat(gridNow[1],gridNow[2],gridNow[3]));
+		$('#test2').click(function(){
+			moveAnimation("left");
 		});
 /*
 		$('#test3').click(function(){
@@ -123,7 +123,7 @@ function initCell(){
 
 function transData(){
 	for(var i=0;i<4;i++){
-		for(var j=0;j<4;j++){$('.cell').eq(i*4+j).text(gridNow[i][j]).attr("val",gridNow[i][j]).css({'font-size':0.4*$g});};
+		for(var j=0;j<4;j++){$('.cell').eq(i*4+j).text(gridNow[i][j]).attr("val",gridNow[i][j]).css({'font-size':0.4*$g,'left':j*$g,'top':i*$g});};
 	};
 	$('.cell').not('[val="0"]').css({"background-color":"#fff","color":"#000","display":"inline-block",'box-shadow':'5px 5px 1px #999999'});
 	$('[val="0"]').css({"display":"none"});
@@ -141,7 +141,7 @@ function goLeft(){
 			else if(gridNow[i][j]+gridNow[i][j+1]==3){gridNow[i][j]=3;cellMoving[i][j+1]=1;}
 			else cellMoving[i][j+1]=0;
 		}
-		if (cellMoving[i][3]==1){ gridNow[i][3]=0; };
+		if (cellMoving[i][3]==1){ gridNow[i][3]=0;};
 	}
 }
 
@@ -190,35 +190,27 @@ function goDown(){
 
 function gridMove(direction){
 
-
-	//if(!testMoving()){ alert("Game's Over !!");}
-
 	if (direction=="left"){
 		goLeft();
-		if(gridThen.join()!=gridNow.join())
-			{console.log("MOVED!"+gridThen.join()+"||"+gridNow.join());
-			addNew("left");}
 	}
 	else if (direction=="right"){
 		goRight();
-		if(gridThen.join()!=gridNow.join())
-			{console.log("MOVED!"+gridThen.join()+"||"+gridNow.join());
-			addNew("right");}
 	}
 	else if (direction=="up"){
 		goUp();
-		if(gridThen.join()!=gridNow.join())
-			{console.log("MOVED!"+gridThen.join()+"||"+gridNow.join());
-			addNew("up");}
 	}
 	else if (direction=="down"){
 		goDown();
-		if(gridThen.join()!=gridNow.join())
-			{console.log("MOVED!"+gridThen.join()+"||"+gridNow.join());
-			addNew("down");}
+
 	}
 
-	transData();
+	if(gridThen.join()!=gridNow.join())
+		{console.log("MOVED:"+gridThen.join()+"||"+gridNow.join());}
+
+	addNew(direction);
+	moveAnimation(direction);
+	setTimeout(transData(),5000);
+	;
 
 	if(isGameOver()){
 		$('#test1').html("GameOver");
@@ -290,26 +282,25 @@ function isGameOver(){
 			gridThen[i][j] = gridNow[i][j];
 		}
 	};
-	goUp();
+		goUp();
 
-if (gridNow.join()==gridThen.join()) {a=0}
-	else {a=1};
+	if (gridNow.join()==gridThen.join()) {a=0}
+		else {a=1};
 
-	goDown();
+		goDown();
 
-if (gridNow.join()==gridThen.join()) {b=0}
-	else {b=1};
+	if (gridNow.join()==gridThen.join()) {b=0}
+		else {b=1};
 
-	goLeft()
+		goLeft()
 
-if (gridNow.join()==gridThen.join()) {c=0}
-	else {c=1};
+	if (gridNow.join()==gridThen.join()) {c=0}
+		else {c=1};
 
-	goRight();
+		goRight();
 
-if (gridNow.join()==gridThen.join()) {d=0}
-	else {d=1};
-
+	if (gridNow.join()==gridThen.join()) {d=0}
+		else {d=1};
 
 	console.log("isGameOver:"+a+b+c+d);
 
@@ -359,10 +350,31 @@ function getNext(){
 
 	$('#next').html($next);
 }
+
 function resetArray(array){
 	for(var i=0;i<4;i++){
 		for(var j=0;j<4;j++){ array[i][j] = 0;};
 	};
+}
+
+function moveAnimation(d){
+	var x=0;
+	var y=0;
+	if (d="left") {x=1}
+	else if (d="right") {x=-1}
+	else if (d="up") {y=-1}
+	else if (d="down") {y=1};
+	for(var i=0;i<4;i++){
+		for(var j=0;j<4;j++){
+			if(cellMoving[i][j]){
+				$('.cell').eq(i*4+j).animate({
+					top:$g*(i+y),
+					left:$g*(j+x),
+					//fontSize:30,
+				},400).html("X");
+			}
+		}
+	}
 }
 
 
