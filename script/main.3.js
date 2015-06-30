@@ -1,40 +1,41 @@
 function main3(){
 	var countCell = 0;
-	var gridV=[];
 	var $next = 0;
 	var $current = 0;
 	var $g = 0;
 	var $edge = 0;
 	var gridNow = new Array();
-	
+	var cellMoving = new Array();
+	var gridThen = new Array;
 	for(var i=0;i<4;i++){
 		gridNow[i] = new Array();
-		for(var j=0;j<4;j++){gridNow[i][j]=parseInt(Math.floor(Math.random()*4));};
+		gridThen[i] = new Array;
+		cellMoving[i] = new Array();
+		for(var j=0;j<4;j++){ gridNow[i][j] = gridThen[i][j] = parseInt(Math.floor(Math.random()*4));cellMoving[i][j] = 0;};
 	}
-
-	$('body').data('val', gridNow);
-	console.log();
-	console.log(gridNow[3][3]);
-	//console.log($('body').data().moving);
-	//console.log($('body').data().del);
 
 	$('.starter').click(function(){
 		initGrid();
 		initCell();
 		transData();
 		$('.startset').fadeOut('fast', function(){$('#grid').slideDown('slow')});
-		$("<div class=\"test\" id=\"test2\">LEFT</div><div class=\"test\" id=\"test3\">RIGHT</div><div class=\"test\" id=\"test4\">UP</div><div class=\"test\" id=\"test5\">DOWN</div><div class=\"test\" id=\"test1\">RESET</div>").appendTo($('.container'));
+		$("<div class=\"next\">NEXT\:<span id=\"next\">0</span></div><div class=\"test\" id=\"test2\">Test</div><div class=\"test\" id=\"test1\">RESET</div>").appendTo($('.container'));
+		/*<div class=\"test\" id=\"test2\">LEFT</div><div class=\"test\" id=\"test3\">RIGHT</div><div class=\"test\" id=\"test4\">UP</div><div class=\"test\" id=\"test5\">DOWN</div>*/
+
+		getNext();
 
 		$('#test1').click(function(){
+			$('#test1').html("RESET");
 			for(var i=0;i<4;i++){
 				for(var j=0;j<4;j++){gridNow[i][j]=Math.floor(Math.random()*4);};
 			};
+			getNext();
 			transData();
 		});
 		$('#test2').click(function(){
-			gridMove("left");
+			moveAnimation("left");
 		});
-
+/*
 		$('#test3').click(function(){
 			gridMove("right");
 		});
@@ -44,285 +45,8 @@ function main3(){
 		$('#test5').click(function(){
 			gridMove("down");
 		});
-	});
+*/	});
 
-	
-
-	//FUNCTIONS====================================================================
-	function initGrid(){
-
-		if(!$('#grid').size()){$("<div id =\"grid\" class=\"grid\"></div>").appendTo($('div.container')).hide()};
-		
-		//Determine grid size and cell size
-		$g = 0.20*(Math.min($(window).height(),$(window).width()));
-		$edge = $(window).height()-$(window).width();
-		;
-		if($edge > 0){	$('#grid').css({'margin-top':0.8*$edge,'margin-left':0.5*$g,'width':4*$g,'height':4*$g});}
-			else {  $('#grid').css({'margin-top':100,'margin-left':Math.abs(0.5*$edge)+50,'width':4*$g,'height':4*$g}); }
-
-		//tagging the rows and cells
-		//$('#grid').children().addClass('row');
-		//$('#grid').find($('span')).addClass('cell');
-	};
-
-	function initCell(){
-		$("<div class=\"row r1\"><span class=\"cell r1 c1\"></span><span class=\"cell r1 c2\"></span><span class=\"cell r1 c3\"></span><span class=\"cell r1 c4\" ></span></div><div class=\"row r2\"><span class=\"cell r2 c1\"></span><span class=\"cell r2 c2\"></span><span class=\"cell r2 c3\"></span><span class=\"cell r2 c4\" ></span></div><div class=\"row r3\"><span class=\"cell r3 c1\"></span><span class=\"cell r3 c2\"></span><span class=\"cell r3 c3\"></span><span class=\"cell r3 c4\" ></span></div><div class=\"row r4\"><span class=\"cell r4 c1\"></span><span class=\"cell r4 c2\"></span><span class=\"cell r4 c3\"></span><span class=\"cell r4 c4\" ></span></div>")
-		.appendTo($('div.grid'));
-		$('.cell').css({'margin':(0.1*$g),  'height':0.8*$g,'width':0.8*$g, 'display':'block', 'position':'absolute'});
-		$('span.c2').css({'left':$g});
-		$('span.c3').css({'left':2*$g});
-		$('span.c4').css({'left':3*$g});
-	};
-
-	function transData(){
-		for(var i=0;i<4;i++){
-			for(var j=0;j<4;j++){$('.cell').eq(i*4+j).text(gridNow[i][j]).attr("val",gridNow[i][j]).css({'font-size':0.4*$g});};
-		};
-		$('.cell').not('[val="0"]').css({"background-color":"#fff","color":"#000","display":"inline-block",'box-shadow':'5px 5px 1px #999999'});
-		$('[val="0"]').css({"display":"none"});
-		$('[val="1"]').css({"background-color":"#7EDAFF","color":"#FFF",'box-shadow':'5px 5px 1px #4488ee'});
-		$('[val="2"]').css({"background-color":"#FF6F8A","color":"#FFF",'box-shadow':'5px 5px 1px #cc4477'});
-	}
-
-	function goLeft(){
-		//var gridNew = 0;
-		for(var i=0;i<4;i++){
-		var indicator1=0;
-		var indicator2=0;
-		var indicator3=0;
-
-		if (!gridNow[i][0]){ gridNow[i][0]=gridNow[i][1];indicator1=1;}
-		else if((gridNow[i][0]==gridNow[i][1])&&(gridNow[i][0]>2)){gridNow[i][0]+=gridNow[i][1];indicator1=1;}
-		else if(gridNow[i][0]+gridNow[i][1]==3){gridNow[i][0]=3;indicator1=1;}
-		else indicator1=0;
-
-		if (indicator1==1){ gridNow[i][1]=gridNow[i][2];indicator2=1;}
-		else if (gridNow[i][1]==0){ gridNow[i][1]=gridNow[i][2];indicator2=1;}
-		else if((gridNow[i][1]==gridNow[i][2])&&(gridNow[i][1]>2)){gridNow[i][1]=gridNow[i][1]*2;indicator2=1;}
-		else if(gridNow[i][1]+gridNow[i][2]==3){gridNow[i][1]=3;indicator2=1;}
-		else indicator2=0;
-
-		if (indicator2==1){ gridNow[i][2]=gridNow[i][3];indicator3=1;}
-		else if (!gridNow[i][2]){ gridNow[i][2]=gridNow[i][3];indicator3=1;}
-		else if((gridNow[i][2]==gridNow[i][3])&&(gridNow[i][2]>2)){gridNow[i][2]=gridNow[i][2]*2;indicator3=1;}
-		else if(gridNow[i][2]+gridNow[i][3]==3){gridNow[i][2]=3;indicator3=1;}
-		else indicator3=0;
-
-		if (indicator3==1){ gridNow[i][3]=0; };
-
-			console.log("grid\("+i+"\):"+gridNow[i][0]+","+gridNow[i][1]+","+gridNow[i][2]+","+gridNow[i][3]);
-		}
-	}
-
-	function goRight(){
-		for(var i=0;i<4;i++){
-		var indicator1=0;
-		var indicator2=0;
-		var indicator3=0;
-
-		//console.log("grid\("+i+"\):"+gridNow[i][0]+","+gridNow[i][1]+","+gridNow[i][2]+","+gridNow[i][3]);
-		
-		if (!gridNow[i][3]){ gridNow[i][3]=gridNow[i][2];indicator1=1;}
-		else if((gridNow[i][3]==gridNow[i][2])&&(gridNow[i][3]>2)){gridNow[i][3]+=gridNow[i][2];indicator1=1;}
-		else if(gridNow[i][3]+gridNow[i][2]==3){gridNow[i][3]=3;indicator1=1;}
-		else indicator1=0;
-
-		if (indicator1==1){ gridNow[i][2]=gridNow[i][1];indicator2=1;}
-		else if (gridNow[i][2]==0){ gridNow[i][2]=gridNow[i][1];indicator2=1;}
-		else if((gridNow[i][2]==gridNow[i][1])&&(gridNow[i][2]>2)){gridNow[i][2]=gridNow[i][2]*2;indicator2=1;}
-		else if(gridNow[i][2]+gridNow[i][1]==3){gridNow[i][2]=3;indicator2=1;}
-		else indicator2=0;
-
-		if (indicator2==1){ gridNow[i][1]=gridNow[i][0];indicator3=1;}
-		else if (!gridNow[i][1]){ gridNow[i][1]=gridNow[i][0];indicator3=1;}
-		else if((gridNow[i][1]==gridNow[i][0])&&(gridNow[i][1]>2)){gridNow[i][1]=gridNow[i][1]*2;indicator3=1;}
-		else if(gridNow[i][1]+gridNow[i][0]==3){gridNow[i][1]=3;indicator3=1;}
-		else indicator3=0;
-
-		if (indicator3==1){ gridNow[i][0]=0; };
-
-			console.log("grid\("+i+"\):"+gridNow[i][0]+","+gridNow[i][1]+","+gridNow[i][2]+","+gridNow[i][3]);
-		}
-	}
-
-	function goUp(){
-		for(var j=0;j<4;j++){
-		var indicator1=0;
-		var indicator2=0;
-		var indicator3=0;
-
-		//console.log("grid\("+j+"\):"+gridNow[0][j]+","+gridNow[1][j]+","+gridNow[2][j]+","+gridNow[3][j]);
-		
-		if (!gridNow[0][j]){ gridNow[0][j]=gridNow[1][j];indicator1=1;}
-		else if((gridNow[0][j]==gridNow[1][j])&&(gridNow[0][j]>2)){gridNow[0][j]+=gridNow[1][j];indicator1=1;}
-		else if(gridNow[0][j]+gridNow[1][j]==3){gridNow[0][j]=3;indicator1=1;}
-		else indicator1=0;
-
-		if (indicator1==1){ gridNow[1][j]=gridNow[2][j];indicator2=1;}
-		else if (gridNow[1][j]==0){ gridNow[1][j]=gridNow[2][j];indicator2=1;}
-		else if((gridNow[1][j]==gridNow[2][j])&&(gridNow[1][j]>2)){gridNow[1][j]=gridNow[1][j]*2;indicator2=1;}
-		else if(gridNow[1][j]+gridNow[2][j]==3){gridNow[1][j]=3;indicator2=1;}
-		else indicator2=0;
-
-		if (indicator2==1){ gridNow[2][j]=gridNow[3][j];indicator3=1;}
-		else if (!gridNow[2][j]){ gridNow[2][j]=gridNow[3][j];indicator3=1;}
-		else if((gridNow[2][j]==gridNow[3][j])&&(gridNow[2][j]>2)){gridNow[2][j]=gridNow[2][j]*2;indicator3=1;}
-		else if(gridNow[2][j]+gridNow[3][j]==3){gridNow[2][j]=3;indicator3=1;}
-		else indicator3=0;
-
-		if (indicator3==1){ gridNow[3][j]=0; };
-
-			console.log("grid\("+j+"\):"+gridNow[0][j]+","+gridNow[1][j]+","+gridNow[2][j]+","+gridNow[3][j]);
-		}
-	}
-
-	function goDown(){
-		for(var j=0;j<4;j++){
-		var indicator1=0;
-		var indicator2=0;
-		var indicator3=0;
-
-		//console.log("grid\("+j+"\):"+gridNow[0][j]+","+gridNow[1][j]+","+gridNow[2][j]+","+gridNow[3][j]);
-		
-		if (!gridNow[3][j]){ gridNow[3][j]=gridNow[2][j];indicator1=1;}
-		else if((gridNow[3][j]==gridNow[2][j])&&(gridNow[3][j]>2)){gridNow[3][j]+=gridNow[2][j];indicator1=1;}
-		else if(gridNow[3][j]+gridNow[2][j]==3){gridNow[3][j]=3;indicator1=1;}
-		else indicator1=0;
-
-		if (indicator1==1){ gridNow[2][j]=gridNow[1][j];indicator2=1;}
-		else if (gridNow[2][j]==0){ gridNow[2][j]=gridNow[1][j];indicator2=1;}
-		else if((gridNow[2][j]==gridNow[1][j])&&(gridNow[2][j]>2)){gridNow[2][j]=gridNow[2][j]*2;indicator2=1;}
-		else if(gridNow[2][j]+gridNow[1][j]==3){gridNow[2][j]=3;indicator2=1;}
-		else indicator2=0;
-
-		if (indicator2==1){ gridNow[1][j]=gridNow[0][j];indicator3=1;}
-		else if (!gridNow[1][j]){ gridNow[1][j]=gridNow[0][j];indicator3=1;}
-		else if((gridNow[1][j]==gridNow[0][j])&&(gridNow[1][j]>2)){gridNow[1][j]=gridNow[1][j]*2;indicator3=1;}
-		else if(gridNow[1][j]+gridNow[0][j]==3){gridNow[1][j]=3;indicator3=1;}
-		else indicator3=0;
-
-		if (indicator3==1){ gridNow[0][j]=0; };
-
-			console.log("grid\("+j+"\):"+gridNow[0][j]+","+gridNow[1][j]+","+gridNow[2][j]+","+gridNow[3][j]);
-		}
-	}
-
-	function gridMove(direction){
-		var gridThen = new Array;
-		for(i=0;i<4;i++){
-			gridThen[i] = new Array;
-			for(j=0;j<4;j++){
-				gridThen[i][j]=gridNow[i][j];
-			}
-		}
-
-		//if(!testMoving()){ alert("Game's Over !!");return false;}
-
-		if (direction=="left"){
-			goLeft();
-			if(gridThen.join()!=gridNow.join())
-				{console.log("MOVED!"+gridThen.join()+"||"+gridNow.join());
-				addNew("left");}
-		}
-		else if (direction=="right"){
-			goRight();
-			if(gridThen.join()!=gridNow.join())
-				{console.log("MOVED!"+gridThen.join()+"||"+gridNow.join());
-				addNew("right");}
-		}
-		else if (direction=="up"){
-			goUp();
-			if(gridThen.join()!=gridNow.join())
-				{console.log("MOVED!"+gridThen.join()+"||"+gridNow.join());
-				addNew("up");}
-		}
-		else if (direction=="down"){
-			goDown();
-			if(gridThen.join()!=gridNow.join())
-				{console.log("MOVED!"+gridThen.join()+"||"+gridNow.join());
-				addNew("down");}
-		}
-
-		transData();
-
-	}
-
-	function addNew(direction){
-		var tempNext = parseInt(Math.random()*4);
-		if (tempNext<3){$next = tempNext+1;}
-		else { 
-			$next=1.5;
-			for(var i=0;i<0.5;i=Math.random()){
-				$next = $next*2;
-			};
-		};
-		switch(direction){
-		case "left":
-			if(gridNow[0][3]>0&&gridNow[1][3]>0&&gridNow[2][3]>0&&gridNow[3][3]>0){}
-			else {for(var i=0;i<4;i++){
-				if(!Math.floor(Math.random()*50)&&gridNow[i][3]==0){
-					gridNow[i][3]=$next;break;
-					}
-				else if(i==3){i=-1;}	
-				}}
-		break;
-		case "right":
-			if(gridNow[0][0]>0&&gridNow[1][0]>0&&gridNow[2][0]>0&&gridNow[3][0]>0){}
-			else {for(var i=0;i<4;i++){
-				if(!Math.floor(Math.random()*50)&&gridNow[i][0]==0){
-					gridNow[i][0]=$next;break;
-					}
-				else if(i==3){i=-1;}	
-				}}
-		break;
-		case "down":
-			if(gridNow[0][0]>0&&gridNow[0][1]>0&&gridNow[0][2]>0&&gridNow[0][3]>0){}
-			else {for(var j=0;j<4;j++){
-				if(!Math.floor(Math.random()*50)&&gridNow[0][j]==0){
-					gridNow[0][j]=$next;break;
-					}
-				else if(j==3){j=-1;}	
-				}}
-		break;
-		case "up":
-			if(gridNow[3][0]>0&&gridNow[3][1]>0&&gridNow[3][2]>0&&gridNow[3][3]>0){}
-			else {for(var j=0;j<4;j++){
-				if(!Math.floor(Math.random()*50)&&gridNow[3][j]==0){
-					gridNow[3][j]=$next;break;
-					}
-				else if(j==3){j=-1;}	
-				}}
-		break;
-		}
-			
-		//}
-	}
-
-	function isMoved(a,b){
-		var judge=0;
-		for(i=0;i<4;i++){
-			for(j=0;j<4;j++){
-				judge+=a[i][j]-b[i][j];
-				if(judge)
-					return true;
-			}
-		}
-		return false;
-	}
-
-	function testMoving(){
-		//var a = gridNow.join();
-		goUp();
-		goDown();
-		goLeft()
-		goRight();
-
-		//if (gridNow==a)
-		//	return false;
-
-		//gridNow = a;
-		//return true;
-	}
 
 var startx = 0
 var starty = 0;
@@ -332,7 +56,7 @@ var endy = 0;
 document.addEventListener('touchstart',function(event){
 	startx = event.touches[0].pageX;
 	starty = event.touches[0].pageY;
-})
+});
 
 document.addEventListener('touchend',function(event){
 	endx = event.changedTouches[0].pageX;
@@ -341,7 +65,7 @@ document.addEventListener('touchend',function(event){
 	deltaX = startx - endx;
 	deltaY = starty - endy;
 
-	if(Math.abs(deltaX)+Math.abs(deltaY)<50){
+	if(Math.abs(deltaX)+Math.abs(deltaY)<$g){
 		//Not a move
 
 	}else if(Math.abs(deltaX)>Math.abs(deltaY)){
@@ -352,7 +76,7 @@ document.addEventListener('touchend',function(event){
 		}
 			else{
 			//right
-			gridMove("right")	
+			gridMove("right")
 			}
 	}else{
 		//Vert
@@ -360,10 +84,317 @@ document.addEventListener('touchend',function(event){
 			else {gridMove("down")}
 
 	}
-})
+});
+
+$(document).keydown(function(event){
+	if(event.which==38)
+		gridMove("up");
+	if(event.which==40)
+		gridMove("down");
+	if(event.which==37)
+		gridMove("left");
+	if(event.which==39)
+		gridMove("right");
+	if(event.which==82)
+		window.location.reload();
+});
+
+	//FUNCTIONS====================================================================
+
+function initGrid(){
+
+	if(!$('#grid').size()){$("<div id =\"grid\" class=\"grid\"></div>").appendTo($('div.container')).hide()};
+
+	//Determine grid size and cell size
+	$g = 0.20*(Math.min($(window).height(),$(window).width()));
+	$edge = $(window).height()-$(window).width();
+	;
+	if($edge > 0){	$('#grid').css({'margin-top':0.8*$edge,'margin-left':0.5*$g,'width':4*$g,'height':4*$g});}
+		else {  $('#grid').css({'margin-top':0.5*$g,'margin-left':Math.abs(0.5*$edge),'width':4*$g,'height':4*$g}); }
+
+};
+
+function initCell(){
+	$("<div class=\"row r1\"><span class=\"cell r1 c1\"></span><span class=\"cell r1 c2\"></span><span class=\"cell r1 c3\"></span><span class=\"cell r1 c4\" ></span></div><div class=\"row r2\"><span class=\"cell r2 c1\"></span><span class=\"cell r2 c2\"></span><span class=\"cell r2 c3\"></span><span class=\"cell r2 c4\" ></span></div><div class=\"row r3\"><span class=\"cell r3 c1\"></span><span class=\"cell r3 c2\"></span><span class=\"cell r3 c3\"></span><span class=\"cell r3 c4\" ></span></div><div class=\"row r4\"><span class=\"cell r4 c1\"></span><span class=\"cell r4 c2\"></span><span class=\"cell r4 c3\"></span><span class=\"cell r4 c4\" ></span></div>")
+	.appendTo($('div.grid'));
+	$('.cell').css({'margin':(0.1*$g),  'height':0.8*$g,'width':0.8*$g, 'display':'block', 'position':'absolute'});
+	$('span.c2').css({'left':$g});
+	$('span.c3').css({'left':2*$g});
+	$('span.c4').css({'left':3*$g});
+};
+
+function transData(){
+	for(var i=0;i<4;i++){
+		for(var j=0;j<4;j++){$('.cell').eq(i*4+j).text(gridNow[i][j]).attr("val",gridNow[i][j]).css({'font-size':0.4*$g,'left':j*$g,'top':i*$g});};
+	};
+	$('.cell').not('[val="0"]').css({"background-color":"#fff","color":"#000","display":"inline-block",'box-shadow':'5px 5px 1px #999999'});
+	$('[val="0"]').css({"display":"none"});
+	$('[val="1"]').css({"background-color":"#7EDAFF","color":"#FFF",'box-shadow':'5px 5px 1px #4488ee'});
+	$('[val="2"]').css({"background-color":"#FF6F8A","color":"#FFF",'box-shadow':'5px 5px 1px #cc4477'});
+}
+
+function goLeft(){
+	resetArray(cellMoving);
+	for(var i=0;i<4;i++){
+		for(j=0;j<3;j++){
+			if (cellMoving[i][j]==1){ gridNow[i][j]=gridNow[i][j+1];cellMoving[i][j+1]=1;}
+			else if (gridNow[i][j]==0){ gridNow[i][j]=gridNow[i][j+1];cellMoving[i][j+1]=1;}
+			else if((gridNow[i][j]==gridNow[i][j+1])&&(gridNow[i][j]>2)){gridNow[i][j]+=gridNow[i][j];cellMoving[i][j+1]=1;}
+			else if((gridNow[i][j]+gridNow[i][j+1]==3)&&gridNow[i][j]<3){gridNow[i][j]=3;cellMoving[i][j+1]=1;}
+			else cellMoving[i][j+1]=0;
+		}
+		if (cellMoving[i][3]==1){ gridNow[i][3]=0;};
+	}
+}
+
+function goRight(){
+	resetArray(cellMoving);
+	for(var i=0;i<4;i++){
+		for(j=3;j>0;j--){
+			if (cellMoving[i][j]==1){ gridNow[i][j]=gridNow[i][j-1];cellMoving[i][j-1]=1;}
+			else if (gridNow[i][j]==0){ gridNow[i][j]=gridNow[i][j-1];cellMoving[i][j-1]=1;}
+			else if((gridNow[i][j]==gridNow[i][j-1])&&(gridNow[i][j]>2)){gridNow[i][j]+=gridNow[i][j];cellMoving[i][j-1]=1;}
+			else if((gridNow[i][j]+gridNow[i][j-1]==3)&&gridNow[i][j]<3){gridNow[i][j]=3;cellMoving[i][j-1]=1;}
+			else cellMoving[i][j-1]=0;
+		}
+		if (cellMoving[i][0]==1){ gridNow[i][0]=0; };
+	}
+}
+
+function goUp(){
+	resetArray(cellMoving);
+	for(var j=0;j<4;j++){
+		for(i=0;i<3;i++){
+			if (cellMoving[i][j]==1){ gridNow[i][j]=gridNow[i+1][j];cellMoving[i+1][j]=1;}
+			else if (gridNow[i][j]==0){ gridNow[i][j]=gridNow[i+1][j];cellMoving[i+1][j]=1;}
+			else if((gridNow[i][j]==gridNow[i+1][j])&&(gridNow[i][j]>2)){gridNow[i][j]+=gridNow[i][j];cellMoving[i+1][j]=1;}
+			else if((gridNow[i][j]+gridNow[i+1][j]==3)&&gridNow[i][j]<3){gridNow[i][j]=3;cellMoving[i+1][j]=1;}
+			else cellMoving[i+1][j]=0;
+		}
+		if (cellMoving[3][j]==1){ gridNow[3][j]=0; };
+	}
+}
+
+function goDown(){
+	resetArray(cellMoving);
+	for(j=0;j<4;j++){
+		for(i=3;i>0;i--){
+			if (cellMoving[i][j]==1){ gridNow[i][j]=gridNow[i-1][j];cellMoving[i-1][j]=1;}
+			else if (gridNow[i][j]==0){ gridNow[i][j]=gridNow[i-1][j];cellMoving[i-1][j]=1;}
+			else if((gridNow[i][j]==gridNow[i-1][j])&&(gridNow[i][j]>2)){gridNow[i][j]+=gridNow[i][j];cellMoving[i-1][j]=1;}
+			else if((gridNow[i][j]+gridNow[i-1][j]==3)&&gridNow[i][j]<3){gridNow[i][j]=3;cellMoving[i-1][j]=1;}
+			else cellMoving[i-1][j]=0;
+		}
+		if (cellMoving[0][j]==1){ gridNow[0][j]=0; };
+	}
+};
+
+
+function gridMove(direction){
+
+	if (direction=="left"){
+		goLeft();
+	}
+	else if (direction=="right"){
+		goRight();
+	}
+	else if (direction=="up"){
+		goUp();
+	}
+	else if (direction=="down"){
+		goDown();
+
+	}
+
+	if(gridThen.join()!=gridNow.join())
+		{console.log("MOVED:"+gridThen.join()+"||"+gridNow.join());}
+
+	addNew(direction);
+	moveAnimation(direction);
+	setTimeout(transData(),5000);
+	;
+
+	if(isGameOver()){
+		$('#test1').html("GameOver");
+	}
+	else{$('#test1').html("RESET");}
+
+}
+
+function addNew(direction){
+
+	switch(direction){
+	case "left":
+		if(gridNow[0][3]>0&&gridNow[1][3]>0&&gridNow[2][3]>0&&gridNow[3][3]>0){}
+		else {for(var i=0;i<4;i++){
+			if(!Math.floor(Math.random()*50)&&gridNow[i][3]==0){
+				gridNow[i][3]=$next;break;
+				}
+			else if(i==3){i=-1;}
+			}}
+	break;
+	case "right":
+		if(gridNow[0][0]>0&&gridNow[1][0]>0&&gridNow[2][0]>0&&gridNow[3][0]>0){}
+		else {for(var i=0;i<4;i++){
+			if(!Math.floor(Math.random()*50)&&gridNow[i][0]==0){
+				gridNow[i][0]=$next;break;
+				}
+			else if(i==3){i=-1;}
+			}}
+	break;
+	case "down":
+		if(gridNow[0][0]>0&&gridNow[0][1]>0&&gridNow[0][2]>0&&gridNow[0][3]>0){}
+		else {for(var j=0;j<4;j++){
+			if(!Math.floor(Math.random()*50)&&gridNow[0][j]==0){
+				gridNow[0][j]=$next;break;
+				}
+			else if(j==3){j=-1;}
+			}}
+	break;
+	case "up":
+		if(gridNow[3][0]>0&&gridNow[3][1]>0&&gridNow[3][2]>0&&gridNow[3][3]>0){}
+		else {for(var j=0;j<4;j++){
+			if(!Math.floor(Math.random()*50)&&gridNow[3][j]==0){
+				gridNow[3][j]=$next;break;
+				}
+			else if(j==3){j=-1;}
+			}}
+	break;
+	}
+
+	getNext();
+
+}
+
+function isMoved(a,b){
+	var judge=0;
+	for(i=0;i<4;i++){
+		for(j=0;j<4;j++){
+			judge+=a[i][j]-b[i][j];
+			if(judge>0)
+				return true;
+		}
+	}
+	return false;
+}
+
+function isGameOver(){
+	for(i=0;i<4;i++){
+		for(j=0;j<4;j++){
+			gridThen[i][j] = gridNow[i][j];
+		}
+	};
+		goUp();
+
+	if (gridNow.join()==gridThen.join()) {a=0}
+		else {a=1};
+
+		goDown();
+
+	if (gridNow.join()==gridThen.join()) {b=0}
+		else {b=1};
+
+		goLeft()
+
+	if (gridNow.join()==gridThen.join()) {c=0}
+		else {c=1};
+
+		goRight();
+
+	if (gridNow.join()==gridThen.join()) {d=0}
+		else {d=1};
+
+	console.log("isGameOver:"+a+b+c+d);
+
+	if (a==0&&b==0&&c==0&&d==0){
+		return true;
+	}
+	else {
+		for(i=0;i<4;i++){
+			for(j=0;j<4;j++){
+				gridNow[i][j] = gridThen[i][j];
+			}
+		};
+		return false;
+	}
+}
+
+function getNext(){
+	var tempNext = parseInt(Math.random()*4);
+	if (tempNext<3){$next = tempNext+1;}
+	else {
+		$next=1.5;
+		for(var i=0;i<0.4;i=Math.random()){
+			$next = $next*2;
+		};
+	};
+	var gridJoined = gridNow[0].concat(gridNow[1],gridNow[2],gridNow[3]);
+	var countOne=0;
+	var countTwo=0;
+	for(i=0;i<15;i++){
+
+		if (gridJoined[i]==1)
+			countOne++;
+
+		if (gridJoined[i]==2)
+			countTwo++;
+	};
+	if(countOne>countTwo+3)
+		$next = 2;
+
+	if(countOne<countTwo-3)
+		$next = 1;
+
+	gridJoined.sort(function(a,b){return a - b;});
+
+	if ($next>gridJoined[15])
+		$next = gridJoined[15];
+
+	$('#next').html($next);
+}
+
+function resetArray(array){
+	for(var i=0;i<4;i++){
+		for(var j=0;j<4;j++){ array[i][j] = 0;};
+	};
+}
+
+function moveAnimation(d){
+
+//	console.log(cellMoving);
+
+	var x=0;
+	var y=0;
+	if (d="left") {x++;y=0}
+	else if (d="right") {x--;y=0}
+	else if (d="up") {y--;x=0}
+	else if (d="down") {y++;x=0};
+/*	for(var i=0;i<4;i++){
+			console.log(cellMoving[i]);
+		for(var j=0;j<4;j++){
+			if(cellMoving[i][j]){
+				var p=i-x;
+				var q=j+y;
+				$('.cell').eq((i*4)+j).animate({
+					left:$g*q,
+					top:$g*p,
+					//fontSize:30,
+				},400);
+				//$('.cell').eq(i*4+j).html("nihao");
+			}
+		}
+	}
+	*/
+	if(cellMoving[0][0]){
+		$('.cell').eq(0).animate({
+					top:$g*x,
+					left:$g*y,
+					//fontSize:30,
+				},400);
+	}
+}
 
 
 
 }
 $(document).ready(main3);
-
