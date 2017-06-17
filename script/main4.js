@@ -1,4 +1,4 @@
-function main3() {
+function main4() {
     //'use strict';
     var countCell = 0,
         $next = 0,
@@ -459,6 +459,7 @@ function main3() {
 
     function getNext() {
         var tempNext = parseInt(Math.random() * 4);
+        var gridJoined = gridNow[0].concat(gridNow[1], gridNow[2], gridNow[3]);
         var countOne = 0,
             countTwo = 0;
         var i;
@@ -470,14 +471,13 @@ function main3() {
                 $next = $next * 2;
             }
         }
-        var gridJoined = gridNow[0].concat(gridNow[1], gridNow[2], gridNow[3]);
-        for (i = 0; i < 15; i += 1) {
+                for (i = 0; i < 15; i += 1) {
 
-            if (gridJoined[i] == 1)
-                countOne += 1;
-            if (gridJoined[i] == 2)
-                countTwo += 1;
-        }
+                    if (gridJoined[i] == 1)
+                        countOne += 1;
+                    if (gridJoined[i] == 2)
+                        countTwo += 1;
+                }
         if (countOne > countTwo + 2)
             $next = 2;
 
@@ -503,12 +503,10 @@ function main3() {
     }
 
     function moveAnimation(D) {
-        //if(!d||d) return 0;
         //
         var x = 0;
         var y = 0;
         var i, j;
-        //    console.log(cellMoving);
         if (D == "left") {
             for (i = 0; i < 4; i += 1) {
                 for (j = 0; j < 4; j += 1) {
@@ -542,35 +540,6 @@ function main3() {
             y += 1;
             x = 0;
         }
-        /*
-        for(var i=0;i<4;i+=1){
-                console.log(cellMoving[i]);
-            for(var j=0;j<4;j+=1){
-                if(cellMoving[i][j]){
-                    //var p=i-x;
-                    //var q=j+y;
-                    $('.cell').eq((j*4)+i).animate({
-                        left:$g*(i+x),
-                        //top:$g*(j+y),
-                        //fontSize:30,
-                    },400);
-                    //$('.cell').eq(i*4+j).html("nihao");
-                }
-            }
-        }
-        */
-        /*
-        if(cellMoving[0][0]){
-            $('.cell').eq(0).animate({
-                        top:$g*x,
-                        left:$g*y,
-                        //fontSize:30,
-                    },400);
-        }
-        */
     }
-
-
-
 }
 $(document).ready(main3);
