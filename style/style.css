@@ -1,114 +1,163 @@
-html, body { 
-	padding:0;
-	margin:0;
-	background-color:#91a7ff; 
-	font-size=62.5%;
-	font-family:'noto sans','Microsoft Yahei','微软雅黑',sans-serif;
-	overflow: hidden;
-	width:100%;
-	height:100%;
+html,
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #91a7ff;
+    font-size: 62.5%;
+    font-family: 'noto sans', 'Microsoft Yahei', '微软雅黑', sans-serif;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    -moz-user-select: none;
+    /*火狐*/
+    -webkit-user-select: none;
+    /*webkit浏览器*/
+    -ms-user-select: none;
+    /*IE10*/
+    -khtml-user-select: none;
+    /*早期浏览器*/
+    user-select: none;
+}
 
-	-moz-user-select: none; /*火狐*/
-	-webkit-user-select: none;  /*webkit浏览器*/
-	-ms-user-select: none;   /*IE10*/
-	-khtml-user-select: none; /*早期浏览器*/
-	user-select: none;
+.container {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    top: 0;
+    background-color: #91a7ff;
 }
-.container{
-	margin:0;
-	height:100%;
-	width:100%;
-	text-align: center;
-	top:0;
-	background-color:#91a7ff; 
-}
+
 .startset {
-	width:50%;
-	height:20%;
-	line-height:2em;
-	text-align: center;
-	font-size:4.8em;
-	box-shadow:5px 5px 5px #738ffe;
-	border-radius: 8px;
-	margin:60px auto;
-	background-color:white;
-	cursor:pointer;
+    width: 50%;
+    height: 20%;
+    line-height: 2em;
+    text-align: center;
+    font-size: 4.8em;
+    box-shadow: 5px 5px 5px #738ffe;
+    border-radius: 8px;
+    margin: 1.5em auto;
+    background-color: white;
+    cursor: pointer;
 }
-.startset:hover{
-	cursor:pointer;
-	box-shadow:8px 8px 5px #738ffe;
-	font-size:6.4em;
-	line-height:1.4em;
-	transition: all 100ms;
+
+.startset:hover {
+    cursor: pointer;
+    box-shadow: 8px 8px 5px #738ffe;
+    font-size: 6.4em;
+    line-height: 1.4em;
+    transition: all 100ms;
 }
-.grid{
-	position: absolute;
-	background-color: #cfd6ef;
-	border-radius: 10px;
+
+.grid {
+    position: absolute;
+    background-color: #cfd6ef;
+    border-radius: 10px;
 }
-.row{
-	text-align: left;
-	overflow:hidden;
-	height:25%;
-	}
-.cell{
-	/*display: inline-block;
+
+.row {
+    text-align: left;
+    overflow: hidden;
+    height: 25%;
+}
+
+.cell {
+    /*display: inline-block;
 	width:20%;*/
-	border-radius: 10px;
-	background-color: white;
-	text-align: center;
-	font-size: 2.6em;
-	line-height: 2em;
-	box-shadow:5px 5px 0.5px #999999;
-	cursor:pointer;
-}
-.cell:hover{box-shadow:6px 6px 5px #673ab7;background-color: #fff59d;transition:all 200ms;}
-
-.cell,.c1,.c2,.c3,.c4,{
-	display:block;
-	position:absolute;
-}
-.c1{left:0;}
-.c2{left:200px;}
-.c3{left:400px;}
-.c4{left:600px;}
-
-.top{
-	float:top;
-	width:100%;
-	/*display:block;*/
-	text-align: center;
-}
-.test{
-	display:inline-block;
-	margin:2%;
-	font-size:2.4em;
-	max-width:32%;
-	height:50px;
-	text-align: center;
-	box-shadow:5px 5px 5px #738ffe;
-	border-radius: 8px;
-	background-color:white;
-	cursor:pointer;
-	z-index:0;
-}
-.del{
-	box-shadow:0;
-}
-@media (max-width: 500px){
-	.startset {
-	font-size:3.6em;
-	padding: 1%;
-
-	}
-	.startset:hover{
-	box-shadow:8px 8px 5px #738ffe;
-	font-size:4.8em;
-	line-height:2em;
+    border-radius: 10px;
+    background-color: white;
+    text-align: center;
+    font-size: 2.6em;
+    line-height: 2em;
+    box-shadow: 5px 5px 0.5px #999999;
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    transition: all 0.3s
 }
 
-.next{
-	margin-top:20px;
+.cell:hover {
+    box-shadow: 6px 6px 5px #673ab7;
+    background-color: #fff59d;
+    transition: all 200ms;
 }
 
+.cell,
+.c1,
+.c2,
+.c3,
+.c4,
+{
+    display: block;
+    position: absolute;
+}
+
+.c1 {
+    left: 0;
+}
+
+.c2 {
+    left: 200px;
+}
+
+.c3 {
+    left: 400px;
+}
+
+.c4 {
+    left: 600px;
+}
+
+.top {
+    float: top;
+    width: 100%;
+    /*display:block;*/
+    text-align: center;
+}
+
+.next {
+    display: inline-block;
+    margin: 2%;
+    font-size: 2.4em;
+    max-width: 32%;
+    height: 50px;
+    text-align: center;
+    box-shadow: 5px 5px 5px #738ffe;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    z-index: 0;
+}
+
+.test {
+    display: inline-block;
+    margin: 2%;
+    font-size: 2.4em;
+    max-width: 32%;
+    height: 50px;
+    text-align: center;
+    box-shadow: 5px 5px 5px #738ffe;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+    z-index: 0;
+}
+
+.del {
+    box-shadow: 0;
+}
+
+@media (max-width: 500px) {
+    .startset {
+        font-size: 3.6em;
+        padding: 1%;
+    }
+    .startset:hover {
+        box-shadow: 8px 8px 5px #738ffe;
+        font-size: 4.8em;
+        line-height: 2em;
+    }
+    .next {
+        margin-top: 20px;
+    }
 }
