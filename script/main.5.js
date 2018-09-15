@@ -7,6 +7,7 @@ function main3() {
         gridBK = [],
         cellMoving = [];
 
+    setInterval(sizeAdapt, 1000);
     var initNumbers = function() {
         for (var i = 0; i < 16; i += 1) {
             gridNow[i] = parseInt(Math.floor(Math.random() * 4));
@@ -14,62 +15,17 @@ function main3() {
         }
         gridBK = gridNow;
     };
-    var windowSize = setInterval(function() {
-        $g = 0.20 * (Math.min($(window).height(), $(window).width()));
-        $edge = $(window).height() - $(window).width();
-        if ($edge > 0) {
-            $('#grid').css({
-                'margin-top': 0.8 * $edge,
-                'margin-left': 0.5 * $g,
-                'width': 4 * $g,
-                'height': 4 * $g
-            });
-            $('.header').css({
-                'width': 0.4 * $edge,
-            })
-        } else {
-            $('#grid').css({
-                'margin-top': 0.5 * $g,
-                'margin-left': Math.abs(0.5 * $edge),
-                'width': 4 * $g,
-                'height': 4 * $g
-            });
-        }
-        $('.cell').css({
-            'margin': 0.1 * $g,
-            'height': 0.8 * $g,
-            'width': 0.8 * $g,
-            'font-size': 0.4 * $g
-        });
-        $('span.c2').css({
-            'left': $g
-        });
-        $('span.c3').css({
-            'left': 2 * $g
-        });
-        $('span.c4').css({
-            'left': 3 * $g
-        });
-        $('span.r2').css({
-            'top': $g
-        });
-        $('span.r3').css({
-            'top': 2 * $g
-        });
-        $('span.r4').css({
-            'top': 3 * $g
-        });
-    }, 1000);
     initNumbers();
 
     $('.starter').click(function() {
         initGrid();
         initCell();
+        $("<div class=\"header\"><div class=\"next\">NEXT\:<span id=\"next\">0</span></div><div class=\"test\" id=\"test2\">Test</div><div class=\"test\" id=\"test1\">RESET</div></div>").appendTo($('.container'));
+
         transData();
         $('.startset').fadeOut('fast', function() {
             $('#grid').slideDown('slow');
         });
-        $("<div class=\"header\"><div class=\"next\">NEXT\:<span id=\"next\">0</span></div><div class=\"test\" id=\"test2\">Test</div><div class=\"test\" id=\"test1\">RESET</div></div>").appendTo($('.container'));
         /*<div class=\"test\" id=\"test2\">LEFT</div><div class=\"test\" id=\"test3\">RIGHT</div><div class=\"test\" id=\"test4\">UP</div><div class=\"test\" id=\"test5\">DOWN</div>*/
 
         getNext();
@@ -151,47 +107,16 @@ function main3() {
     //FUNCTIONS====================================================================
 
     function initGrid() {
-
         if (!$('#grid').size()) {
             $("<div id =\"grid\" class=\"grid\"></div>").appendTo($('div.container')).hide();
         }
-
-        //Determine grid size and cell size
-        if ($edge > 0) {
-            $('#grid').css({
-                'margin-top': 0.8 * $edge,
-                'margin-left': 0.5 * $g,
-                'width': 4 * $g,
-                'height': 4 * $g
-            });
-        } else {
-            $('#grid').css({
-                'margin-top': 0.5 * $g,
-                'margin-left': Math.abs(0.5 * $edge),
-                'width': 4 * $g,
-                'height': 4 * $g
-            });
-        }
+        sizeAdapt()
     }
 
     function initCell() {
         $("<div class=\"row r1\"><span class=\"cell r1 c1\"></span><span class=\"cell r1 c2\"></span><span class=\"cell r1 c3\"></span><span class=\"cell r1 c4\" ></span></div><div class=\"row r2\"><span class=\"cell r2 c1\"></span><span class=\"cell r2 c2\"></span><span class=\"cell r2 c3\"></span><span class=\"cell r2 c4\" ></span></div><div class=\"row r3\"><span class=\"cell r3 c1\"></span><span class=\"cell r3 c2\"></span><span class=\"cell r3 c3\"></span><span class=\"cell r3 c4\" ></span></div><div class=\"row r4\"><span class=\"cell r4 c1\"></span><span class=\"cell r4 c2\"></span><span class=\"cell r4 c3\"></span><span class=\"cell r4 c4\" ></span></div>")
             .appendTo($('div.grid'));
-        $('.cell').css({
-            'margin': 0.1 * $g,
-            'height': 0.8 * $g,
-            'width': 0.8 * $g,
-            'font-size': 0.4 * $g
-        });
-        $('span.c2').css({
-            'left': $g
-        });
-        $('span.c3').css({
-            'left': 2 * $g
-        });
-        $('span.c4').css({
-            'left': 3 * $g
-        });
+        sizeAdapt()
     }
 
     function transData() {
@@ -351,7 +276,84 @@ function main3() {
         }
     }
 
-    this.Animation = function(direction) {
+    function sizeAdapt() {
+        $g = 0.20 * (Math.min($(window).height(), $(window).width()));
+        $edge = $(window).height() - $(window).width();
+        $('html').css({
+            'font-size': 0.02 * (Math.min($(window).height(), $(window).width()))
+        });
+        if ($edge > 0) {
+            $('#grid').css({
+                'margin-top': 0.5 * $edge + 0.5 * $g,
+                'margin-left': '5rem',
+                'margin-right': '5rem',
+                'right': 0,
+
+            });
+            $('.header').css({
+                'margin-top': 0.5 * $edge,
+                'margin-left': '5rem',
+                'width': '40rem',
+                'flex-flow': 'row',
+            });
+            $('.next').css({
+                'width': '12rem',
+                'margin': '1rem',
+            })
+            $('.test').css({
+                'width': '12rem',
+                'margin': '1rem',
+            })
+
+        } else {
+            $('#grid').css({
+                'margin-top': '5rem',
+                //'margin-right': Math.abs(0.5 * $edge), // + $g,
+                'right': Math.abs(0.45 * $edge)
+
+            });
+            $('.header').css({
+                //'width': (-0.5) * $edge,
+                'margin-top': '5rem',
+                'flex-flow': 'column',
+                'margin-left': Math.abs(0.45 * $edge)
+            })
+            $('.next').css({
+                'height': '5rem',
+            })
+            $('.test').css({
+                //'margin': -0.1 * $edge
+            })
+        }
+        /*
+                $('.cell').css({
+                    'margin': 0.1 * $g,
+                    'height': 0.8 * $g,
+                    'width': 0.8 * $g,
+                    'font-size': 0.4 * $g
+                });
+                /*
+                        $('span.c2').css({
+                            'left': $g
+                        });
+                        $('span.c3').css({
+                            'left': 2 * $g
+                        });
+                        $('span.c4').css({
+                            'left': 3 * $g
+                        });*/
+        $('span.r2').css({
+            'top': $g
+        });
+        $('span.r3').css({
+            'top': 2 * $g
+        });
+        $('span.r4').css({
+            'top': 3 * $g
+        });
+    }
+
+    function Animation(direction) {
         for (var i = 0; i < 16; i++) {
             console.log($('.cell:eq(' + i + ')').css('left'))
         }

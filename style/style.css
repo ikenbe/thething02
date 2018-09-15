@@ -8,6 +8,7 @@ body {
     overflow: hidden;
     width: 100%;
     height: 100%;
+    transition: all 0.3s;
     -moz-user-select: none;
     /*火狐*/
     -webkit-user-select: none;
@@ -30,10 +31,10 @@ body {
 
 .startset {
     width: 50%;
-    height: 20%;
-    line-height: 2em;
+    height: 4em;
+    line-height: 4em;
     text-align: center;
-    font-size: 4.8em;
+    font-size: 4em;
     box-shadow: 5px 5px 5px #738ffe;
     border-radius: 8px;
     margin: 1.5em auto;
@@ -44,15 +45,19 @@ body {
 .startset:hover {
     cursor: pointer;
     box-shadow: 8px 8px 5px #738ffe;
-    font-size: 6.4em;
-    line-height: 1.4em;
+    font-size: 4.5em;
+    line-height: 4em;
     transition: all 100ms;
 }
 
 .grid {
     position: absolute;
+    top: 0;
     background-color: #cfd6ef;
     border-radius: 10px;
+    height: 40rem;
+    width: 40rem;
+    margin: 5rem 0;
 }
 
 .row {
@@ -62,13 +67,14 @@ body {
 }
 
 .cell {
-    /*display: inline-block;
-	width:20%;*/
     border-radius: 10px;
     background-color: white;
     text-align: center;
-    font-size: 2.6em;
-    line-height: 2em;
+    margin: 1rem;
+    font-size: 4rem;
+    height: 8rem;
+    width: 8rem;
+    line-height: 8rem;
     box-shadow: 5px 5px 0.5px #999999;
     cursor: pointer;
     display: block;
@@ -97,15 +103,15 @@ body {
 }
 
 .c2 {
-    left: 200px;
+    left: 10rem;
 }
 
 .c3 {
-    left: 400px;
+    left: 20rem;
 }
 
 .c4 {
-    left: 600px;
+    left: 30rem;
 }
 
 .top {
@@ -115,12 +121,20 @@ body {
     text-align: center;
 }
 
+.header {
+    width: 40rem;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+
 .next {
-    display: inline-block;
-    margin: 2%;
-    font-size: 2.4em;
-    max-width: 32%;
-    height: 50px;
+    flex: 0 0 auto;
+    font-size: 2.4rem;
+    height: 5rem;
+    width: 10rem;
+    line-height: 5rem;
+    margin: 0rem 1rem 0 1rem;
     text-align: center;
     box-shadow: 5px 5px 5px #738ffe;
     border-radius: 8px;
@@ -130,11 +144,12 @@ body {
 }
 
 .test {
-    display: inline-block;
-    margin: 2%;
-    font-size: 2.4em;
-    max-width: 32%;
-    height: 50px;
+    flex: 1 1 auto;
+    font-size: 2.4rem;
+    height: 5rem;
+    width: 10rem;
+    line-height: 5rem;
+    margin: 1rem 1rem 0 1rem;
     text-align: center;
     box-shadow: 5px 5px 5px #738ffe;
     border-radius: 8px;
@@ -145,6 +160,10 @@ body {
 
 .del {
     box-shadow: 0;
+}
+
+[val="1"] {
+    color: blue;
 }
 
 @media (max-width: 500px) {
