@@ -20,15 +20,6 @@ body {
     user-select: none;
 }
 
-.container {
-    margin: 0;
-    height: 100%;
-    width: 100%;
-    text-align: center;
-    top: 0;
-    background-color: #91a7ff;
-}
-
 .startset {
     width: 50%;
     height: 4em;
@@ -50,20 +41,11 @@ body {
     transition: all 100ms;
 }
 
-.grid {
-    position: absolute;
-    top: 0;
-    background-color: #cfd6ef;
-    border-radius: 10px;
-    height: 40rem;
-    width: 40rem;
-    margin: 5rem 0;
-}
-
 .row {
     text-align: left;
     overflow: hidden;
     height: 25%;
+    display: flex;
 }
 
 .cell {
@@ -78,7 +60,7 @@ body {
     box-shadow: 5px 5px 0.5px #999999;
     cursor: pointer;
     display: block;
-    position: absolute;
+    position: relative;
     transition: all 0.3s
 }
 
@@ -94,8 +76,9 @@ body {
 .c3,
 .c4,
 {
-    display: block;
-    position: absolute;
+    flex: 0 0 auto;
+    z-index: 0;
+    top: 0;
 }
 
 .c1 {
@@ -103,38 +86,58 @@ body {
 }
 
 .c2 {
-    left: 10rem;
+    left: 0rem;
 }
 
 .c3 {
-    left: 20rem;
+    left: 0rem;
 }
 
 .c4 {
-    left: 30rem;
+    left: 0rem;
 }
 
-.top {
-    float: top;
+.container {
+    margin: 0;
+    height: 100%;
     width: 100%;
-    /*display:block;*/
     text-align: center;
+    top: 0;
+    background-color: #91a7ff;
+    display: flex;
+    flex-flow: column;
+}
+
+.container::after {
+    clear: both;
+}
+
+.grid {
+    /*position: absolute;*/
+    top: 0;
+    background-color: #cfd6ef;
+    border-radius: 10px;
+    height: 40rem;
+    width: 40rem;
+    margin: 5rem 0;
 }
 
 .header {
     width: 40rem;
+    height: 40rem;
     display: flex;
     flex-direction: row;
     text-align: center;
+    align-content: center;
 }
 
 .next {
     flex: 0 0 auto;
     font-size: 2.4rem;
     height: 5rem;
-    width: 10rem;
+    width: 12rem;
     line-height: 5rem;
-    margin: 0rem 1rem 0 1rem;
+    margin: 1rem;
     text-align: center;
     box-shadow: 5px 5px 5px #738ffe;
     border-radius: 8px;
@@ -166,17 +169,4 @@ body {
     color: blue;
 }
 
-@media (max-width: 500px) {
-    .startset {
-        font-size: 3.6em;
-        padding: 1%;
-    }
-    .startset:hover {
-        box-shadow: 8px 8px 5px #738ffe;
-        font-size: 4.8em;
-        line-height: 2em;
-    }
-    .next {
-        margin-top: 20px;
-    }
-}
+@media (max-width: 500px) {}

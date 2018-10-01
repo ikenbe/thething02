@@ -18,10 +18,10 @@ function main3() {
     initNumbers();
 
     $('.starter').click(function() {
+
+        $("<div class=\"header\"><div class=\"next\">NEXT\:<span id=\"next\">0</span></div><div class=\"test\" id=\"test2\">Test</div><div class=\"test\" id=\"test1\">RESET</div></div>").appendTo($('.container'));
         initGrid();
         initCell();
-        $("<div class=\"header\"><div class=\"next\">NEXT\:<span id=\"next\">0</span></div><div class=\"test\" id=\"test2\">Test</div><div class=\"test\" id=\"test1\">RESET</div></div>").appendTo($('.container'));
-
         transData();
         $('.startset').fadeOut('fast', function() {
             $('#grid').slideDown('slow');
@@ -127,11 +127,11 @@ function main3() {
         $('.cell').not('[val="0"]').css({
             "background-color": "#fff",
             "color": "#000",
-            "display": "inline-block",
+            'opacity': 1,
             'box-shadow': '5px 5px 1px #999999'
         });
         $('[val="0"]').css({
-            "display": "none"
+            'opacity': 0,
         });
         $('[val="1"]').css({
             "background-color": "#7EDAFF",
@@ -283,22 +283,28 @@ function main3() {
             'font-size': 0.02 * (Math.min($(window).height(), $(window).width()))
         });
         if ($edge > 0) {
+            //console.log("vertical");
+            $('.container').css({
+                'flex-flow': 'column',
+            });
             $('#grid').css({
-                'margin-top': 0.5 * $edge + 0.5 * $g,
-                'margin-left': '5rem',
-                'margin-right': '5rem',
+                'margin-top': 0,
+                //'margin-left': '5rem',
+                //'margin-right': '5rem',
+                'margin': '0 auto',
                 'right': 0,
 
             });
             $('.header').css({
                 'margin-top': 0.5 * $edge,
-                'margin-left': '5rem',
-                'width': '40rem',
+                'margin-left': "5%",
+                'width': '90%',
+                'height': '12rem',
                 'flex-flow': 'row',
             });
             $('.next').css({
-                'width': '12rem',
-                'margin': '1rem',
+                'height': '5rem',
+                'line-height': '5rem'
             })
             $('.test').css({
                 'width': '12rem',
@@ -306,51 +312,28 @@ function main3() {
             })
 
         } else {
+            $('.container').css({
+                'flex-flow': 'row',
+            });
             $('#grid').css({
                 'margin-top': '5rem',
-                //'margin-right': Math.abs(0.5 * $edge), // + $g,
                 'right': Math.abs(0.45 * $edge)
-
             });
             $('.header').css({
-                //'width': (-0.5) * $edge,
+                'width': '12rem',
+                'height': '40rem',
                 'margin-top': '5rem',
                 'flex-flow': 'column',
                 'margin-left': Math.abs(0.45 * $edge)
-            })
+            });
             $('.next').css({
-                'height': '5rem',
-            })
+                'height': '12rem',
+                'line-height': '12rem'
+            });
             $('.test').css({
                 //'margin': -0.1 * $edge
             })
         }
-        /*
-                $('.cell').css({
-                    'margin': 0.1 * $g,
-                    'height': 0.8 * $g,
-                    'width': 0.8 * $g,
-                    'font-size': 0.4 * $g
-                });
-                /*
-                        $('span.c2').css({
-                            'left': $g
-                        });
-                        $('span.c3').css({
-                            'left': 2 * $g
-                        });
-                        $('span.c4').css({
-                            'left': 3 * $g
-                        });*/
-        $('span.r2').css({
-            'top': $g
-        });
-        $('span.r3').css({
-            'top': 2 * $g
-        });
-        $('span.r4').css({
-            'top': 3 * $g
-        });
     }
 
     function Animation(direction) {
