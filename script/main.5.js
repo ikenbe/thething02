@@ -19,9 +19,9 @@ function main3() {
 
     $('.starter').click(getStart);
 
-    $('goFS').click(function() {
-        toggleFullScreen()
-    }, false)
+    $('#goFS').click(function() {
+        toggleFullScreen();
+    })
 
     var startx = 0;
     var starty = 0;
@@ -252,6 +252,7 @@ function main3() {
         $('html').css({
             'font-size': 0.02 * (Math.min($(window).height(), $(window).width()))
         });
+        //console.log($edge > 0 ? "Virtical" : "Horizotal")
         if ($edge > 0) {
             //console.log("vertical");
             $('.container').css({
@@ -262,14 +263,14 @@ function main3() {
                 //'margin-left': '5rem',
                 //'margin-right': '5rem',
                 'margin': '0 auto',
-                'right': 0,
+                //'right': 0,
 
             });
             $('.header').css({
                 'margin-top': 0.5 * $edge,
                 'margin-left': "5%",
                 'width': '90%',
-                'height': '12rem',
+                'height': '5rem',
                 'flex-flow': 'row',
             });
             $('.next').css({
@@ -286,15 +287,15 @@ function main3() {
                 'flex-flow': 'row',
             });
             $('#grid').css({
-                'margin-top': '5rem',
-                'right': Math.abs(0.45 * $edge)
+                //'margin-top': '5rem',
+                //'right': Math.abs(0.45 * $edge)
             });
             $('.header').css({
-                'width': '12rem',
+                'width': '14rem',
                 'height': '40rem',
-                'margin-top': '5rem',
+                //'margin-top': '5rem',
                 'flex-flow': 'column',
-                'margin-left': Math.abs(0.45 * $edge)
+                //'margin-left': Math.abs(0.45 * $edge)
             });
             $('.next').css({
                 'height': '12rem',
@@ -347,7 +348,8 @@ function main3() {
         */
     }
 
-    function toggleFullScreen() {
+    var toggleFullScreen = function() {
+        console.log('triggered')
         var doc = window.document;
         var docEl = doc.documentElement;
 

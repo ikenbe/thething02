@@ -106,6 +106,7 @@ body {
     background-color: #91a7ff;
     display: flex;
     flex-flow: column;
+    align-content: center;
 }
 
 .container::after {
@@ -114,21 +115,24 @@ body {
 
 .grid {
     /*position: absolute;*/
+    flex: 0 0 auto;
     top: 0;
     background-color: #cfd6ef;
     border-radius: 10px;
     height: 40rem;
     width: 40rem;
-    margin: 5rem 0;
+    margin: auto;
 }
 
 .header {
+    flex: 0 0 auto;
     width: 40rem;
     height: 40rem;
     display: flex;
     flex-direction: row;
     text-align: center;
     align-content: center;
+    margin: auto;
 }
 
 .next {
@@ -137,7 +141,7 @@ body {
     height: 5rem;
     width: 12rem;
     line-height: 5rem;
-    margin: 1rem;
+    margin: 0 1rem;
     text-align: center;
     box-shadow: 5px 5px 5px #738ffe;
     border-radius: 8px;
@@ -147,10 +151,10 @@ body {
 }
 
 .test {
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     font-size: 2.4rem;
     height: 5rem;
-    width: 10rem;
+    width: 12rem;
     line-height: 5rem;
     margin: 1rem 1rem 0 1rem;
     text-align: center;
