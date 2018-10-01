@@ -107,6 +107,8 @@ body {
     display: flex;
     flex-flow: column;
     align-content: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .container::after {
@@ -115,24 +117,27 @@ body {
 
 .grid {
     /*position: absolute;*/
-    flex: 0 0 auto;
+    flex: 0 0 min-content;
     top: 0;
     background-color: #cfd6ef;
     border-radius: 10px;
     height: 40rem;
     width: 40rem;
-    margin: auto;
+    align-self: center;
+    justify-self: center;
+    margin: 0;
 }
 
 .header {
-    flex: 0 0 auto;
+    flex: 0 0 min-content;
     width: 40rem;
     height: 40rem;
     display: flex;
     flex-direction: row;
     text-align: center;
     align-content: center;
-    margin: auto;
+    justify-content: space-evenly;
+    margin: 0;
 }
 
 .next {
@@ -141,7 +146,7 @@ body {
     height: 5rem;
     width: 12rem;
     line-height: 5rem;
-    margin: 0 1rem;
+    margin: 0 0 2rem 0;
     text-align: center;
     box-shadow: 5px 5px 5px #738ffe;
     border-radius: 8px;
@@ -156,7 +161,7 @@ body {
     height: 5rem;
     width: 12rem;
     line-height: 5rem;
-    margin: 1rem 1rem 0 1rem;
+    margin: 0 0 2rem 0;
     text-align: center;
     box-shadow: 5px 5px 5px #738ffe;
     border-radius: 8px;

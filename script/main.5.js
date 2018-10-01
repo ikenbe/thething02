@@ -258,48 +258,40 @@ function main3() {
             $('.container').css({
                 'flex-flow': 'column',
             });
-            $('#grid').css({
-                'margin-top': 0,
-                //'margin-left': '5rem',
-                //'margin-right': '5rem',
-                'margin': '0 auto',
-                //'right': 0,
-
-            });
+            $('#grid').css({});
             $('.header').css({
-                'margin-top': 0.5 * $edge,
-                'margin-left': "5%",
+                //'margin-top': 0.5 * $edge,
+                //'margin-left': "5%",
                 'width': '90%',
-                'height': '5rem',
+                'height': '9rem',
                 'flex-flow': 'row',
+                'justify-content': 'space-evenly'
             });
             $('.next').css({
                 'height': '5rem',
-                'line-height': '5rem'
+                'line-height': '5rem',
+                //'margin': '1rem 1rem 1rem 0'
             })
-            $('.test').css({
-                'width': '12rem',
-                'margin': '1rem',
-            })
+            $('.test').css({})
 
         } else {
+            //console.log("横向");
             $('.container').css({
                 'flex-flow': 'row',
             });
-            $('#grid').css({
-                //'margin-top': '5rem',
-                //'right': Math.abs(0.45 * $edge)
-            });
+            $('#grid').css({});
             $('.header').css({
                 'width': '14rem',
                 'height': '40rem',
                 //'margin-top': '5rem',
                 'flex-flow': 'column',
-                //'margin-left': Math.abs(0.45 * $edge)
+                'justify-content': 'flex-start'
+                    //'margin-left': Math.abs(0.45 * $edge)
             });
             $('.next').css({
                 'height': '12rem',
-                'line-height': '12rem'
+                'line-height': '12rem',
+                //'margin': '0 1rem'
             });
             $('.test').css({
                 //'margin': -0.1 * $edge
