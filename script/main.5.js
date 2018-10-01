@@ -17,41 +17,11 @@ function main3() {
     };
     initNumbers();
 
-    $('.starter').click(function() {
+    $('.starter').click(getStart);
 
-        $("<div class=\"header\"><div class=\"next\">NEXT\:<span id=\"next\">0</span></div><div class=\"test\" id=\"test2\">Test</div><div class=\"test\" id=\"test1\">RESET</div></div>").appendTo($('.container'));
-        initGrid();
-        initCell();
-        transData();
-        $('.startset').fadeOut('fast', function() {
-            $('#grid').slideDown('slow');
-        });
-        /*<div class=\"test\" id=\"test2\">LEFT</div><div class=\"test\" id=\"test3\">RIGHT</div><div class=\"test\" id=\"test4\">UP</div><div class=\"test\" id=\"test5\">DOWN</div>*/
-
-        getNext();
-
-        $('#test1').click(function() {
-            $('#test1').html("RESET");
-            initNumbers();
-            getNext();
-            transData();
-        });
-        $('#test2').click(function() {
-            initNumbers();
-            transData();
-        });
-        /*
-                $('#test3').click(function(){
-                    gridMove("right");
-                });
-                $('#test4').click(function(){
-                    gridMove("up");
-                });
-                $('#test5').click(function(){
-                    gridMove("down");
-                });
-        */
-    });
+    $('goFS').click(function() {
+        document.body.requestFullscreen().then(getStart);
+    }, false)
 
     var startx = 0;
     var starty = 0;
@@ -340,6 +310,41 @@ function main3() {
         for (var i = 0; i < 16; i++) {
             console.log($('.cell:eq(' + i + ')').css('left'))
         }
+    }
+
+    function getStart() {
+        $("<div class=\"header\"><div class=\"next\">NEXT\:<span id=\"next\">0</span></div><div class=\"test\" id=\"test2\">Test</div><div class=\"test\" id=\"test1\">RESET</div></div>").appendTo($('.container'));
+        initGrid();
+        initCell();
+        transData();
+        $('.startset').fadeOut('fast', function() {
+            $('#grid').slideDown('slow');
+        });
+        /*<div class=\"test\" id=\"test2\">LEFT</div><div class=\"test\" id=\"test3\">RIGHT</div><div class=\"test\" id=\"test4\">UP</div><div class=\"test\" id=\"test5\">DOWN</div>*/
+
+        getNext();
+
+        $('#test1').click(function() {
+            $('#test1').html("RESET");
+            initNumbers();
+            getNext();
+            transData();
+        });
+        $('#test2').click(function() {
+            initNumbers();
+            transData();
+        });
+        /*
+                $('#test3').click(function(){
+                    gridMove("right");
+                });
+                $('#test4').click(function(){
+                    gridMove("up");
+                });
+                $('#test5').click(function(){
+                    gridMove("down");
+                });
+        */
     }
 
 
