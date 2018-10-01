@@ -21,6 +21,7 @@ body {
 }
 
 .startset {
+    flex: 1 1 min-content;
     width: 50%;
     height: 4em;
     line-height: 4em;
@@ -28,7 +29,7 @@ body {
     font-size: 4em;
     box-shadow: 5px 5px 5px #738ffe;
     border-radius: 8px;
-    margin: 1.5em auto;
+    margin: 1em;
     background-color: white;
     cursor: pointer;
 }
@@ -38,7 +39,7 @@ body {
     box-shadow: 8px 8px 5px #738ffe;
     font-size: 4.5em;
     line-height: 4em;
-    transition: all 100ms;
+    transition: all 200ms;
 }
 
 .row {
@@ -79,22 +80,7 @@ body {
     flex: 0 0 auto;
     z-index: 0;
     top: 0;
-}
-
-.c1 {
     left: 0;
-}
-
-.c2 {
-    left: 0rem;
-}
-
-.c3 {
-    left: 0rem;
-}
-
-.c4 {
-    left: 0rem;
 }
 
 .container {

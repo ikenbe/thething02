@@ -7,7 +7,6 @@ function main3() {
         gridBK = [],
         cellMoving = [];
 
-    setInterval(sizeAdapt, 1000);
     var initNumbers = function() {
         for (var i = 0; i < 16; i += 1) {
             gridNow[i] = parseInt(Math.floor(Math.random() * 4));
@@ -15,13 +14,17 @@ function main3() {
         }
         gridBK = gridNow;
     };
+
     initNumbers();
+    sizeAdapt();
 
     $('.starter').click(getStart);
 
     $('#goFS').click(function() {
         toggleFullScreen();
     })
+
+    window.addEventListener('resize', sizeAdapt);
 
     var startx = 0;
     var starty = 0;
@@ -252,16 +255,11 @@ function main3() {
         $('html').css({
             'font-size': 0.02 * (Math.min($(window).height(), $(window).width()))
         });
-        //console.log($edge > 0 ? "Virtical" : "Horizotal")
         if ($edge > 0) {
-            //console.log("vertical");
             $('.container').css({
                 'flex-flow': 'column',
             });
-            $('#grid').css({});
             $('.header').css({
-                //'margin-top': 0.5 * $edge,
-                //'margin-left': "5%",
                 'width': '90%',
                 'height': '9rem',
                 'flex-flow': 'row',
@@ -270,38 +268,29 @@ function main3() {
             $('.next').css({
                 'height': '5rem',
                 'line-height': '5rem',
-                //'margin': '1rem 1rem 1rem 0'
             })
-            $('.test').css({})
 
         } else {
             //console.log("横向");
             $('.container').css({
                 'flex-flow': 'row',
             });
-            $('#grid').css({});
             $('.header').css({
                 'width': '14rem',
                 'height': '40rem',
-                //'margin-top': '5rem',
                 'flex-flow': 'column',
                 'justify-content': 'flex-start'
-                    //'margin-left': Math.abs(0.45 * $edge)
             });
             $('.next').css({
                 'height': '12rem',
                 'line-height': '12rem',
-                //'margin': '0 1rem'
             });
-            $('.test').css({
-                //'margin': -0.1 * $edge
-            })
         }
     }
 
     function Animation(direction) {
         for (var i = 0; i < 16; i++) {
-            console.log($('.cell:eq(' + i + ')').css('left'))
+            //console.log($('.cell:eq(' + i + ')').css('left'))
         }
     }
 
@@ -327,17 +316,7 @@ function main3() {
             initNumbers();
             transData();
         });
-        /*
-                $('#test3').click(function(){
-                    gridMove("right");
-                });
-                $('#test4').click(function(){
-                    gridMove("up");
-                });
-                $('#test5').click(function(){
-                    gridMove("down");
-                });
-        */
+
     }
 
     var toggleFullScreen = function() {
